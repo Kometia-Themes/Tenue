@@ -1,0 +1,17 @@
+<div class="row collection__grid collection__layout__3-items">
+    <div class="col-sm-6">
+        {% include "_collection-square.twig" with {'collection' : collection_1} %}
+    </div>
+    <div class="col-sm-6">
+        <div class="row">
+            <div class="col-xs-12">
+                {% include "_collection-rectangle.twig" with {'collection' : collection_2} %}
+            </div>
+        </div>
+        <div class="row bottom-row">
+            <div class="col-xs-12">
+                {% include "_collection-rectangle.twig" with {'collection' : collection_3} %}
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,159 @@
+{% extends 'layout.twig' %}
+
+{% block body %}
+
+    {% if not performed %}
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+                <form method="get">
+                    <div class="form-group">
+                        <br>
+                        <label for="q">Término de búsqueda</label>
+                        <input type="text" class="form-control" name="q">
+                    </div>
+
+                    <div class="form-group">
+                        <input type="submit" class="btn pull-right" value="&nbsp; Buscar &nbsp;">
+                    </div>
+                </form>
+            </div>
+        </div>
+    {% else %}
+        <div class="row">
+            <h2 class="text-center">Resultados de la búsqueda para: "{{ search }}"</h2>
+
+            <div class="col-sm-12">
+                <h4 class="text-uppercase">Productos</h4>
+                {% if results.products | length == 0 %}
+                    <div class="text-center">
+                        <h5>No se encontraron productos con los términos de búsqueda.</h5>
+                    </div>
+                {% else %}
+                    <table class="table table-striped table-hover">
+                        <thead>
+                        <tr>
+                            <th colspan="2">Nombre</th>
+                            <th>Precio</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                        {% for product in results.products %}
+                            <tr>
+
+                                <td width="5%">
+                                    <a href="/productos/{{ product.permalink }}">
+                                        <img src="{{ product.image_url }}?w=128&h=128" class="img img-responsive center-block pull-left" alt="{{ product.name }}">
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="/productos/{{ product.permalink }}">
+                                        {{ product.name }}
+                                    </a>
+                                </td>
+                                <td>
+                                    {{ product.price | money('symbol', 'code') }}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                {% endif %}
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-sm-12">
+                <h4 class="text-uppercase">Colecciones</h4>
+                {% if results.collections | length == 0 %}
+                    <div class="text-center">
+                        <h5>No se encontraron colecciones con los términos de búsqueda.</h5>
+                    </div>
+                {% else %}
+                    <table class="table table-striped table-hover">
+                        <thead>
+                        <tr>
+                            <th colspan="2">Nombre</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                        {% for collection in results.collections %}
+                            <tr>
+                                <td width="5%">
+                                    <a href="/colecciones/{{ collection.permalink }}">
+                                        <img src="{{ collection.image_url }}?w=128&h=128" class="img img-responsive center-block pull-left" alt="{{ collection.name }}">
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="/colecciones/{{ collection.permalink }}">
+                                        {{ collection.title }}
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                {% endif %}
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-sm-12">
+                <h4 class="text-uppercase">Artículos</h4>
+                {% if results.posts | length == 0 %}
+                    <div class="text-center">
+                        <h5>No se encontraron artículos con los términos de búsqueda.</h5>
+                    </div>
+                {% else %}
+                    <table class="table table-striped table-hover">
+                        <thead>
+                        <tr>
+                            <th>Título</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                        {% for post in results.posts %}
+                            <tr>
+                                <td>
+                                    <a href="/blogs/{{ post.blog.permalink }}/posts/{{ post.permalink }}">
+                                        {{ post.title }}
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                {% endif %}
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-sm-12">
+                <h4 class="text-uppercase">Páginas</h4>
+                {% if results.pages | length == 0 %}
+                    <div class="text-center">
+                        <h5>No se encontraron páginas con los términos de búsqueda.</h5>
+                    </div>
+                {% else %}
+                    <table class="table table-striped table-hover">
+                        <thead>
+                        <tr>
+                            <th>Título</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                        {% for page in results.pages %}
+                            <tr>
+                                <td>
+                                    <a href="/paginas/{{ page.permalink }}">
+                                        {{ page.title }}
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                {% endif %}
+            </div>
+        </div>
+    {% endif %}
+{% endblock body %}

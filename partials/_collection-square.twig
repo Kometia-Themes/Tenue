@@ -1,0 +1,18 @@
+{% if collection.image_url is defined %}
+    <div class="collection__item collection__item--square" style="background-image: url('{{ collection.image_url }}?w=570&h=570&fit=crop');">
+        <div class="collection__item__overlay">
+            <a href="/colecciones/{{ collection.permalink }}" class="collection__item__title h3">
+                {{ collection.title }}
+            </a>
+        </div>
+    </div>
+
+{% else %}
+    <div class="collection__item collection__item--no_image collection__item--square" style="background-image: url('{{ 'placeholder_collection.svg' | asset_url }}'); background-size: 150px;">
+        <div class="collection__item__overlay">
+            <a href="/colecciones/{{ collection.permalink }}" class="collection__item__title h3">
+                {{ collection.title }}
+            </a>
+        </div>
+    </div>
+{% endif %}

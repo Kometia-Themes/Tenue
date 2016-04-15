@@ -1,0 +1,18 @@
+{% if settings.main_banner %}
+    <div class="container-fluid">
+        <div class="row main-banner" style="background-image: url('{{ settings.main_banner_image }}')">
+            <div class="main-banner__overlay"></div>
+            <div class="col-xs-12">
+                <div class="main-banner__info">
+                    <h2 class="main_banner_title">{{ settings.main_banner_title }}</h2>
+                    <p class="main_banner_desc">{{ settings.main_banner_desc }}</p>
+                    <div class="row">
+                        <div class="col-sm-4 col-md-4 col-lg-3">
+                            <a href="{{ settings.main_banner_btn_url }}" class="btn-outline btn btn-block">{{ settings.main_banner_btn_text }}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}

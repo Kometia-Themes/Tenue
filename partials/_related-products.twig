@@ -1,0 +1,16 @@
+{% if related_products|length > 0 %}
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h2 class="related__products__heading section-heading">Si te gustó este, también te puede gustar</h2>
+            </div>
+        </div>
+        <div class="row related__products__grid">
+            {% for related_product in related_products|slice(0, 4) %}
+                <div class="col-sm-3">
+                    {% include "_product-card.twig" with { 'product' : related_product } %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endif %}

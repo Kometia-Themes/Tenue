@@ -1,0 +1,42 @@
+<nav class="navbar navbar-default" id="main-menu">
+    <div class="container">
+        {# Brand and toggle get grouped for better mobile display #}
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-menu-collapse" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">
+                {% if settings.use_logo %}
+                    <img src="{{ settings['nav_logo'] }}" class="img-responsive brand-logo">
+                {% else %}
+                    <span class="brand-text">{{ store.name }}</span>
+                {% endif %}
+            </a>
+        </div>
+
+        {# Collect the nav links, forms, and other content for toggling #}
+        <div class="collapse navbar-collapse" id="main-menu-collapse">
+            <ul class="nav navbar-nav navbar-left">
+                {% for link in menus.main %}
+                    <li>
+                        <a href="{{ link.url }}">
+                            {{ link.name }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/carrito"><i class="fa fa-shopping-cart"></i>
+                        {% if cart.total_items > 0 %}
+                            <sup class="cart-notification">{{ cart.total_items }}</sup>
+                        {% endif %}
+                    </a>
+                </li>
+                <li><a href="/buscar"><i class="fa fa-search"></i></a></li>
+            </ul>
+        </div>{# /.navbar-collapse #}
+    </div>{# /.container-fluid #}
+</nav>

@@ -1,0 +1,44 @@
+{% if settings.featured_blog|length > 0 and blogs[settings.featured_blog] is defined %}
+    {% set blog = blogs[settings.featured_blog] %}
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h2 class="section-heading">Un poco de inspiración</h2>
+            </div>
+        </div>
+        <div class="row front__blog__grid">
+            {% for post in blog.posts|slice(0,3) %}
+                <div class="col-sm-4">
+                    {% include "_blog-grid-item.twig" %}
+                </div>
+            {%  endfor %}
+        </div>
+    </div>
+
+{% else %}
+    <div class="container placeholder-hover">
+        <div class="placeholder-helper">
+            <div class="placeholder-info">
+                <p>Esta sección desplegará el blog que asignes como destacado en la configuración de tu tema.</p>
+                <a href="/admin/blogs" class="btn btn-placeholder">Administrar Blogs</a>
+                <a href="/admin/themes" class="btn btn-placeholder">Ir a sección de temas</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <h2 class="section-heading">Un poco de inspiración</h2>
+            </div>
+        </div>
+        <div class="row front__blog__grid">
+            <div class="col-sm-4">
+                {% include "_blog-placeholder.twig" %}
+            </div>
+            <div class="col-sm-4">
+                {% include "_blog-placeholder.twig" %}
+            </div>
+            <div class="col-sm-4">
+                {% include "_blog-placeholder.twig" %}
+            </div>
+        </div>
+    </div>
+{% endif %}

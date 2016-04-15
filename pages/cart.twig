@@ -1,0 +1,135 @@
+{% extends 'layout.twig' %}
+
+{% block main_title %}
+    Check Out
+{% endblock main_title %}
+
+{% block body %}
+    <div class="container cart">
+        <div class="row">
+            <div class="col-xs-12">
+                <h2 class="section-heading">Carrito de Compras</h2>
+            </div>
+        </div>
+        {% if cart.items|length > 0 %}
+            <div class="row cart__grid__heading hidden-xs">
+                <div class="col-sm-7">
+                    <h5>Artículo</h5>
+                </div>
+                <div class="col-sm-2">
+                    <h5>Cantidad</h5>
+                </div>
+                <div class="col-sm-3">
+                    <h5>Precio</h5>
+                </div>
+            </div>
+            {% for item in cart.items %}
+                {% set sku_image_url = item.product.image_url is defined
+                    ? item.product.image_url ~ '?w=100&h=130&fit=crop'
+                    : 'placeholder.png' | asset_url
+                %}
+                <div class="row cart-item">
+                    <div class="col-sm-7">
+                        <div class="media">
+                            <div class="media-left cart-item__image-container">
+                                <img class="media-object" src="{{ sku_image_url }}">
+                            </div>
+                            <div class="media-body">
+                                <h4 class="media-heading"><a href="/productos/{{ item.product.permalink }}">{{ item.product.name }}</a></h4>
+                                {% for modifier in item.product.modifiers %}
+                                    <p class="item__variant">{{ modifier }}<span class="item__variant__desc">{{ item.sku.modifiers[loop.index0] }}</span></p>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-2">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <h5 class="visible-xs-block item__variant">Cantidad</h5>
+                                <form action="/carrito/actualizar" method="post" class="form-inline">
+                                    <div class="form-group">
+                                        <input type="hidden" name="_method" value="patch">
+                                        <input type="hidden" name="id" value="{{ item.id }}">
+                                        <select class="cart__resume-table__product-quantity selectpicker" name="quantity">
+                                            {% for qty in 1..5 %}
+                                                <option value="{{ qty }}"{{ qty == item.quantity ? ' selected="selected"' : null }}>{{ qty }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <button class="btn btn-link item_refresh" type="submit"><span class="fa fa-refresh"></span></button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-2">
+                        <h5 class="visible-xs-block item__variant">Precio</h5>
+                        <p class="item__price">{{ item.price | money('symbol', 'code') }}</p>
+                    </div>
+                    <div class="col-xs-12 col-sm-1">
+                        <form action="/carrito/eliminar" method="post" class="text-center">
+                            <input type="hidden" name="_method" value="delete">
+                            <input type="hidden" name="id" value="{{ item.id }}">
+                            <input type="hidden" name="quantity" value="0">
+                            <button type="submit" class="item__delete"><i class="fa fa-times hidden-xs"></i><i class="fa fa-trash visible-xs-block"></i></button>
+                        </form>
+                    </div>
+                </div>
+            {% endfor %}
+            <div class="row">
+                <div class="col-sm-4 col-sm-offset-8 col-md-3 col-md-offset-9">
+                    <div class="cart__payment__info">
+
+                        <div class="row">
+                            <div class="col-xs-5">
+                                <h4 class="cart__payment__heading">Subtotal</h4>
+                            </div>
+                            <div class="col-xs-7">
+                                <p class="cart__payment__cont text-right">{{ cart.subtotal_price | money('symbol', 'code') }}</p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-5">
+                                <h4 class="cart__payment__heading">Envío</h4>
+                            </div>
+                            <div class="col-xs-7">
+                                <p class="cart__payment__cont text-right">{{ cart.shipping_rate | money('symbol', 'code') }}</p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-5">
+                                <h4 class="cart__payment__heading">Total</h4>
+                            </div>
+                            <div class="col-xs-7">
+                                <p class="cart__payment__cont text-right">{{ cart.total_price | money('symbol', 'code') }}</p>
+                            </div>
+                        </div>
+
+                    </div>
+                    <a href="/checkout" class="btn btn-block btn_cart"> Compra Ahora</a>
+                </div>
+            </div>
+        {% else %}
+            <div class="row">
+                <div class="col-xs-12">
+                    <p class="empty-cart">No tiene nada en su carrito de compras. <a href="/">Seguir comprando</a></p>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+{% endblock body %}
+
+{% block body_js %}
+    {{ parent() }}
+
+    <script>
+        $(function() {
+            $('.selectpicker').selectpicker({
+                style: 'btn-select btn-block',
+                size: 5
+            });
+        });
+    </script>
+
+{% endblock body_js %}
