@@ -104,7 +104,7 @@
 
     {% if product.is_in_stock %}
         <script type="text/javascript">
-            var skus = {{ skus | raw }};
+            var skus = {{ skus | json }};
 
             $('.add-to-cart-disabled').hide();
             showSelectedSku();

@@ -40,65 +40,9 @@
     <body>
         <div class="container-m">
             <div class="content-m">
-                {% if errors is not empty %}
-                    <div class="alert alert-danger fade in">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                        {% for message in errors %}
-                            <div>{{ message }}</div>
-                        {% endfor %}
-                    </div>
-                {% endif %}
-
-                {% if success is not empty %}
-                <div class="alert alert-success fade in">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                    {% for message in success %}
-                        <div>{{ message }}</div>
-                    {% endfor %}
-                </div>
-                {% endif %}
                 <h1 class="store">{{ store.name }}</h1>
-
-                {% if password %}
-                    <div class="title">Próxima apertura</div>
-                    <p class="lead">Entérate cuando abrimos</p>
-
-                    <div class="container text-center">
-                        <div class="col-md-6 col-md-offset-3">
-                            <form action="/contacto" method="post">
-                                <div class="input-group">
-                                    <input class="form-control" type="email" name="email" placeholder="Email">
-                                    <span class="input-group-btn">
-                                        <button class="btn" type="submit">Enviar!</button>
-                                    </span>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-
-                    <button type="button" class="btn btn-link" data-toggle="modal" data-target="#password-modal">Entrar usando contraseña</button>
-                {% else %}
-                    <div class="title">Estamos en mantenimiento</div>
-                {% endif %}
+                <div class="title">Estamos en mantenimiento</div>
             </div>
         </div>
-
-        {% if password %}
-            <div class="modal fade" id="password-modal" tabindex="-1" role="dialog" aria-labelledby="password-modal-label">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-body">
-                            <form action="/password" method="post">
-                                <div class="form-group">
-                                    <label class="lead" for="password">Introduce la contraseña</label>
-                                    <input type="password" name="password" class="form-control" placeholder="******">
-                                </div>
-                                <button class="btn btn-success" type="submit">Entrar</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        {% endif %}
     </body>
 </html>
