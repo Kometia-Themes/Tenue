@@ -48,7 +48,7 @@
                 <h3 class="section-heading product__title">{{ product.name }}</h3>
                 <p class="product__description">{{ product.description | raw }}</p>
                 <h5 class="product___heading">Precio</h5>
-                <p class="product__price"><span class="final-price js-product-price-amount">{{ product.price | money('symbol', 'code') }}</span><span class="compared-price js-product-price-compared-amount">{{ sku.compared_price is defined ? sku.compared_price | money('symbol', 'code') : '' }}</span></p>
+                <p class="product__price"><span class="final-price js-product-price-amount">{{ product.price | money('symbol', 'code') }}</span><span class="compared-price js-product-price-compared-amount">{{ product.sku.compared_price is defined ? product.sku.compared_price | money('symbol', 'code') : '' }}</span></p>
                 <form class="product_selection" action="/carrito/agregar" method="post">
                     <input type="hidden" name="sku_id" value="{{ product.sku.id }}">
                     <div class="row">
@@ -104,7 +104,7 @@
 
     {% if product.is_in_stock %}
         <script type="text/javascript">
-            var skus = {{ skus | json }};
+            var skus = {{ product.skus | json }};
 
             $('.add-to-cart-disabled').hide();
             showSelectedSku();
