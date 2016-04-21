@@ -789,6 +789,15 @@ label {
   background-color: {{ settings.placeholder_background_color }};
 }
 
+.collection__item--no_image {
+  background-image: url('{{ 'placeholder_collection.svg' | asset_url }}');
+  background-size: 150px;
+}
+
+.product-card__no-image {
+  background-image: url('{{ 'placeholder_product.svg' | asset_url }}');
+}
+
 @media (max-width: 767px) {
   .collection__item {
     margin-top: 25px;
@@ -1145,7 +1154,6 @@ label {
 }
 
 .product-card .product-card__background {
-  background-image: url('{{ 'placeholder_product.svg' | asset_url }}');
   background-repeat: no-repeat;
   background-position: center;
 }
