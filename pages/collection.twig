@@ -4,7 +4,7 @@
     {{ collection.title }}
 {% endblock main_title %}
 
-{% if product.image_url is defined %}
+{% if collection.image_url is defined %}
     {% set image_url = collection.image_url ~ '?w=1280&h=560&fit=crop' %}
     {% set extra_style = null %}
 {% else %}
