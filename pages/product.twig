@@ -23,7 +23,7 @@
                 <div class="slider-for">
                     {% for image in product.images %}
                         <div class="img-wrapper product__images product__images--for">
-                            <img src="{{ image.url }}?w=575&h=620&fit=crop">
+                            <img src="{{ image.url }}?w=575&h=620">
                         </div>
                     {% else %}
                         <div class="img-wrapper product__images product__images--for">
@@ -35,7 +35,7 @@
                     <div class="slider-nav hidden-xs">
                         {% for image in product.images %}
                             <div class="img-wrapper product__images product__images--nav">
-                                <img src="{{ image.url }}?w=185&h=152&fit=crop">
+                                <img src="{{ image.url }}?w=185&h=152">
                             </div>
                         {% endfor %}
                     </div>
