@@ -1,4 +1,4 @@
-{% if settings.featured_blog|length > 0 and blogs[settings.featured_blog] is defined %}
+{% if settings.featured_blog | length > 0 and blogs[settings.featured_blog] is defined %}
     {% set blog = blogs[settings.featured_blog] %}
     <div class="container">
         <div class="row">
@@ -7,11 +7,11 @@
             </div>
         </div>
         <div class="row front__blog__grid">
-            {% for post in blog.posts|slice(0,3) %}
+            {% for post in blog.posts | slice(0, 3) %}
                 <div class="col-sm-4">
                     {% include "_blog-grid-item.twig" %}
                 </div>
-            {%  endfor %}
+            {% endfor %}
         </div>
     </div>
 

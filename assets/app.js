@@ -100,4 +100,5 @@ $(function() {
   centerItem('.placeholder-info');
   verticalAlign('.blog__item__info');
   $(".fill-image").imgLiquid();
+  $('input, textarea').placeholder();
 });

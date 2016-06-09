@@ -6,7 +6,7 @@
     {% set class = ' collection__item--no_image' %}
 {% endif %}
 
-<div class="collection__item collection__item--rectangle{{ class }}"{{ style | raw }}>
+<div class="collection__item collection__item--rectangle{{ class }}"{{ style }}>
     <div class="collection__item__overlay">
         <a href="/colecciones/{{ collection.permalink }}" class="collection__item__title h3">
             {{ collection.title }}

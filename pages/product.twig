@@ -1,11 +1,7 @@
 {% extends 'layout.twig' %}
 
-{% block main_title %}
-    {{ product.name }}
-{% endblock main_title %}
-
 {% block body %}
-    {% if product.images|length <= 3 %}
+    {% if product.images | length <= 3 %}
         <style type="text/css">
             .slick-list {
                 padding: 0 !important;
@@ -14,6 +10,7 @@
                 width: 100%;
                 margin: 0;
             }
+
         </style>
     {% endif %}
 
@@ -22,7 +19,7 @@
             <div class="col-sm-6">
                 <div class="slider-for">
                     {% for image in product.images %}
-                        <div class="img-wrapper product__images product__images--for">
+                        <div class="fill-image product__images product__images--for" data-imgLiquid-fill="false">
                             <img src="{{ image.url }}?w=575&h=620">
                         </div>
                     {% else %}
@@ -31,10 +28,10 @@
                         </div>
                     {% endfor %}
                 </div>
-                {% if product.images|length > 0 %}
-                    <div class="slider-nav hidden-xs">
+                {% if product.images | length > 0 %}
+                    <div class="slider-nav hidden-xs hidden-sm">
                         {% for image in product.images %}
-                            <div class="img-wrapper product__images product__images--nav">
+                            <div class="fill-image product__images product__images--nav" data-imgLiquid-fill="false">
                                 <img src="{{ image.url }}?w=185&h=152">
                             </div>
                         {% endfor %}
@@ -43,16 +40,21 @@
             </div>
             <div class="col-sm-6">
                 {% if product.vendor %}
-                    <p class="product__vendor">Marca: <span class="product__vendor__name">{{ product.vendor.name }}</span></p>
+                    <p class="product__vendor">Marca:
+                        <span class="product__vendor__name">{{ product.vendor.name }}</span>
+                    </p>
                 {% endif %}
                 <h3 class="section-heading product__title">{{ product.name }}</h3>
-                <p class="product__description">{{ product.description | raw }}</p>
+                <div class="product__description">{{ product.description | raw }}</div>
                 <h5 class="product___heading">Precio</h5>
-                <p class="product__price"><span class="final-price js-product-price-amount">{{ product.price | money('symbol', 'code') }}</span><span class="compared-price js-product-price-compared-amount">{{ product.sku.compared_price is defined ? product.sku.compared_price | money('symbol', 'code') : '' }}</span></p>
+                <p class="product__price">
+                    <span class="final-price js-product-price-amount">{{ product.price | money('symbol', 'code') }}</span>
+                    <span class="compared-price js-product-price-compared-amount">{{ product.sku.compared_price is defined ? product.sku.compared_price | money('symbol', 'code') : '' }}</span>
+                </p>
                 <form class="product_selection" action="/carrito/agregar" method="post">
                     <input type="hidden" name="sku_id" value="{{ product.sku.id }}">
                     <div class="row">
-                        <div class="col-sm-6">
+                        <div class="col-md-8">
                             {% for modifier, options in product.skus_modifiers %}
                                 <div class="product__vars">
                                     <h5 class="product__heading">{{ modifier }}</h5>
@@ -69,7 +71,7 @@
                                 <h5 class="product__heading">Cantidad</h5>
                                 <select class="selectpicker" title="Cantidad de producto" name="quantity" id="quantity">
                                     {% for qty in 1..5 %}
-                                        <option value="{{ qty }}"{{ qty == item.quantity ? ' selected="selected"' : null }}>{{ qty }}</option>
+                                        <option value="{{ qty }}" {{ qty == item.quantity ? ' selected="selected"' : null }}>{{ qty }}</option>
                                     {% endfor %}
                                 </select>
                             </div>
@@ -80,7 +82,8 @@
                         <div class="col-xs-12">
                             {% if product.is_in_stock %}
                                 <button type="submit" class="btn btn-block js-add-to-cart">
-                                    <i class="fa fa-cart-plus"></i> Añadir al carrito
+                                    <i class="fa fa-cart-plus"></i>
+                                    Añadir al carrito
                                 </button>
                                 <button type="submit" class="btn btn-block js-add-to-cart-disabled" disabled="disabled">
                                     No disponible
@@ -96,7 +99,8 @@
             </div>
         </div>
     </div>
-    {% include "_related-products.twig" with {'related_products': related_products} only %}
+    {% include '_related-products.twig' with {'related_products': related_products}
+    only %}
 {% endblock body %}
 
 {% block body_js %}
@@ -117,16 +121,15 @@
 
                 // get the product variant modifiers from the selects
                 var selectedModifiers = [];
-                $('.js-variant-select').each(function () {
+                $('.js-variant-select').each(function() {
                     selectedModifiers.push($(this).find(":selected").text());
                 });
 
                 var foundSku = null;
                 // check if there's an sku with the selected modifiers
-                skus.forEach(function (sku) {
+                skus.forEach(function(sku) {
                     var modifiers = sku.modifiers;
-                    if ($(modifiers).not(selectedModifiers).length === 0
-                        && $(selectedModifiers).not(modifiers).length === 0) {
+                    if ($(modifiers).not(selectedModifiers).length === 0 && $(selectedModifiers).not(modifiers).length === 0) {
                         foundSku = sku;
                         return false;
                     }
@@ -156,11 +159,10 @@
                     } else {
                         comparedPriceElement.hide();
                     }
-                }
-                else {
+                } else {
                     disabledAddButton.show();
                     enabledAddButton.hide();
-                    comparedPriceElement.hide();
+                    //comparedPriceElement.hide();
                 }
 
                 return sku;
@@ -173,7 +175,7 @@
                 return '$ ' + price + ' {{ store.currency }}';
             }
 
-            $('.js-variant-select').change(function () {
+            $('.js-variant-select').change(function() {
                 showSelectedSku();
             });
         </script>
@@ -181,11 +183,8 @@
 
     <script>
         $(function() {
-            $('.js-variant-select').selectpicker({
-                style: 'btn-select btn-block',
-                size: 5
-            });
-            $('.js-variant-select').selectpicker().each(function () {
+            $('.js-variant-select').selectpicker({style: 'btn-select btn-block', size: 5});
+            $('.js-variant-select').selectpicker().each(function() {
                 if (this.nodeName == "DIV") {
                     $(this).find('ul.dropdown-menu li:first').css('display', 'none');
                 }

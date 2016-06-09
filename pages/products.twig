@@ -1,12 +1,7 @@
 {% extends 'layout.twig' %}
 
-{% block main_title %}
-    Productos
-{% endblock main_title %}
-
 {% block body %}
-
-    {% if products|length > 0 %}
+    {% if products | length > 0 %}
         <div class="container">
             <div class="row">
                 <div class="col-xs-12">
@@ -15,8 +10,8 @@
             </div>
             <div class="row products__grid">
                 {% for product in products %}
-                    <div class="col-sm-4">
-                        {% include "_product-card.twig" %}
+                    <div class="col-sm-6 col-md-4">
+                        {% include '_product-card.twig' %}
                         {% if loop.index % 3 == 0%}
                             <br class="clear-both">
                         {% endif %}
@@ -43,16 +38,15 @@
             </div>
             <div class="row products__grid">
                 <div class="col-sm-4">
-                    {% include "_product-placeholder.twig" %}
+                    {% include '_product-placeholder.twig' %}
                 </div>
                 <div class="col-sm-4">
-                    {% include "_product-placeholder.twig" %}
+                    {% include '_product-placeholder.twig' %}
                 </div>
                 <div class="col-sm-4">
-                    {% include "_product-placeholder.twig" %}
+                    {% include '_product-placeholder.twig' %}
                 </div>
             </div>
         </div>
     {% endif %}
-
 {% endblock body %}

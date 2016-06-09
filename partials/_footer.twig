@@ -18,28 +18,60 @@
             <h5 class="footer-title">Síguenos en</h5>
             <ul class="footer-social-icons">
                 {% if settings.facebook_link is not empty %}
-                    <li><a href="{{ settings.facebook_link }}" target="_blank"><i class="fa fa-facebook"></i> Facebook</a></li>
+                    <li>
+                        <a href="{{ settings.facebook_link }}" target="_blank">
+                            <i class="fa fa-facebook"></i>
+                            Facebook</a>
+                    </li>
                 {% endif %}
                 {% if settings.twitter_link is not empty %}
-                    <li><a href="{{ settings.twitter_link }}" target="_blank"><i class="fa fa-twitter"></i> Twitter</a></li>
+                    <li>
+                        <a href="{{ settings.twitter_link }}" target="_blank">
+                            <i class="fa fa-twitter"></i>
+                            Twitter</a>
+                    </li>
                 {% endif %}
                 {% if settings.google_link is not empty %}
-                    <li><a href="{{ settings.google_link }}" target="_blank"><i class="fa fa-google-plus"></i> Google</a></li>
+                    <li>
+                        <a href="{{ settings.google_link }}" target="_blank">
+                            <i class="fa fa-google-plus"></i>
+                            Google</a>
+                    </li>
                 {% endif %}
                 {% if settings.youtube_link is not empty %}
-                    <li><a href="{{ settings.youtube_link }}" target="_blank"><i class="fa fa-youtube"></i> Youtube</a></li>
+                    <li>
+                        <a href="{{ settings.youtube_link }}" target="_blank">
+                            <i class="fa fa-youtube"></i>
+                            Youtube</a>
+                    </li>
                 {% endif %}
                 {% if settings.vimeo_link is not empty %}
-                    <li><a href="{{ settings.vimeo_link }}" target="_blank"><i class="fa fa-vimeo"></i> Vimeo</a></li>
+                    <li>
+                        <a href="{{ settings.vimeo_link }}" target="_blank">
+                            <i class="fa fa-vimeo"></i>
+                            Vimeo</a>
+                    </li>
                 {% endif %}
                 {% if settings.pinterest_link is not empty %}
-                    <li><a href="{{ settings.pinterest_link }}" target="_blank"><i class="fa fa-pinterest-p"></i> Pinterest</a></li>
+                    <li>
+                        <a href="{{ settings.pinterest_link }}" target="_blank">
+                            <i class="fa fa-pinterest-p"></i>
+                            Pinterest</a>
+                    </li>
                 {% endif %}
                 {% if settings.instagram_link is not empty %}
-                    <li><a href="{{ settings.instagram_link }}" target="_blank"><i class="fa fa-instagram"></i> Instagram</a></li>
+                    <li>
+                        <a href="{{ settings.instagram_link }}" target="_blank">
+                            <i class="fa fa-instagram"></i>
+                            Instagram</a>
+                    </li>
                 {% endif %}
                 {% if settings.tumblr_link is not empty %}
-                    <li><a href="{{ settings.tumblr_link }}" target="_blank"><i class="fa fa-tumblr"></i> Tumblr</a></li>
+                    <li>
+                        <a href="{{ settings.tumblr_link }}" target="_blank">
+                            <i class="fa fa-tumblr"></i>
+                            Tumblr</a>
+                    </li>
                 {% endif %}
 
             </ul>
@@ -61,7 +93,7 @@
         <div class="col-sm-6 col-md-3">
             <h5 class="footer-title">Newsletter</h5>
             <p>{{ settings.mailing_list_text }}</p>
-            <form class="form-inline" id="newsletterForm">
+            <form class="form-inline" id="newsletterForm" action="/contacto">
                 <div class="row">
                     <div class="col-xs-9" style="padding-right:0;">
                         <div class="form-group">
@@ -69,27 +101,40 @@
                         </div>
                     </div>
                     <div class="col-xs-3" style="padding-left:0;">
-                        <button type="submit" class="btn btn-block"><i class="fa fa-chevron-right"></i></button>
+                        <button type="submit" class="btn btn-block">
+                            <i class="fa fa-chevron-right"></i>
+                        </button>
                     </div>
                 </div>
             </form>
             <p class="newsletter-content">Al introducir su dirección de correo electrónico, usted acepta recibir nuestras ofertas, promociones y otros mensajes comerciales.<br/>
+            </div>
+        {% endif %}
+    </div>
+    <div class="row footer-bottom">
+        <div class="col-sm-6 text-left">
+            <p class="copyright">&copy;2016
+                {{ store.name }}
+                | Desarrollado por SHOPERTI</p>
         </div>
-    {% endif %}
-</div>
-<div class="row footer-bottom">
-    <div class="col-sm-6 text-left">
-        <p class="copyright">&copy;2016 {{ store.name }} | Desarrollado por SHOPERTI</p>
+        <div class="col-sm-6 text-right payment-methods">
+            {% if settings.accept_visa %}
+                <img src="{{ 'visa.png'|asset_url }}" alt="Visa">
+            {% endif %}
+            {% if settings.accept_mastercard %}
+                <img src="{{ 'master_card.png'|asset_url }}" alt="Master Card">
+            {% endif %}
+            {% if settings.accept_amex %}
+                <img src="{{ 'amex.png'|asset_url }}" alt="American Express">
+            {% endif %}
+            {% if settings.accept_paypal %}
+                <img src="{{ 'paypal.png'|asset_url }}" alt="Paypal">
+            {% endif %}
+            {% if settings.accept_efectivo %}
+                <img src="{{ 'efectivo.png'|asset_url }}" alt="Efectivo">
+            {% endif %}
+            {% if settings.accept_spei %}
+                <img src="{{ 'spei.png'|asset_url }}" alt="SPEI">
+            {% endif %}
+        </div>
     </div>
-    <div class="col-sm-6 text-right payment-methods">
-        {% if settings.accept_visa %}
-            <img src="{{ 'visa.png'|asset_url }}" alt="Visa">
-        {% endif %}
-        {% if settings.accept_mastercard %}
-            <img src="{{ 'master_card.png'|asset_url }}" alt="Master Card">
-        {% endif %}
-        {% if settings.accept_amex %}
-            <img src="{{ 'amex.png'|asset_url }}" alt="American Express">
-        {% endif %}
-    </div>
-</div>

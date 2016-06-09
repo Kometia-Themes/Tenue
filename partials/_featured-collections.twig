@@ -1,13 +1,13 @@
 {% set featured_collections = [] %}
 
 {% for i in 1..4 %}
-    {% set featured_collection = 'featured_collection_'~i %}
-    {% if settings[featured_collection] is not empty and collections[settings[featured_collection]] is defined %}
-        {% set featured_collections = featured_collections|merge([ collections[settings[featured_collection]] ]) %}
+    {% set featured_collection = 'featured_collection_' ~ i %}
+    {% if settings[featured_collection]is not empty and collections[settings[featured_collection]]is defined %}
+        {% set featured_collections = featured_collections | merge([collections[settings[featured_collection]]]) %}
     {% endif %}
 {% endfor %}
 
-{% if featured_collections|length > 0 %}
+{% if featured_collections | length > 0 %}
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
@@ -15,17 +15,21 @@
             </div>
         </div>
 
-        {% if featured_collections|length  == 1 %}
-            {% include "_featured-collection-1-item.twig" with {'collection_1' : featured_collections.0} only %}
+        {% if featured_collections | length == 1 %}
+            {% include "_featured-collection-1-item.twig" with {'collection_1': featured_collections.0}
+            only %}
 
-        {% elseif featured_collections|length  == 2 %}
-            {% include "_featured-collection-2-items.twig" with {'collection_1' : featured_collections.0 , 'collection_2' : featured_collections.1} only %}
+        {% elseif featured_collections | length == 2 %}
+            {% include "_featured-collection-2-items.twig" with {'collection_1': featured_collections.0, 'collection_2': featured_collections.1}
+            only %}
 
-        {% elseif featured_collections|length  == 3 %}
-            {% include "_featured-collection-3-items.twig" with {'collection_1' : featured_collections.0, 'collection_2' : featured_collections.1, 'collection_3' : featured_collections.2} only %}
+        {% elseif featured_collections | length == 3 %}
+            {% include "_featured-collection-3-items.twig" with {'collection_1': featured_collections.0, 'collection_2': featured_collections.1, 'collection_3': featured_collections.2}
+            only %}
 
-        {% elseif featured_collections|length  == 4 %}
-            {% include "_featured-collection-4-items.twig" with {'collection_1' : featured_collections.0, 'collection_2' : featured_collections.1, 'collection_3' : featured_collections.2, 'collection_4' : featured_collections.3} only %}
+        {% elseif featured_collections | length == 4 %}
+            {% include "_featured-collection-4-items.twig" with {'collection_1': featured_collections.0, 'collection_2': featured_collections.1, 'collection_3': featured_collections.2, 'collection_4': featured_collections.3}
+            only %}
         {% endif %}
     </div>
 

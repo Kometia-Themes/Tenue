@@ -1,20 +1,24 @@
 {% set featured_products = [] %}
-{% if settings.featured_products_collection is not empty and collections[settings.featured_products_collection] is defined %}
+{% if settings.featured_products_collection is not empty and collections[settings.featured_products_collection]is defined %}
     {% set featured_products = collections[settings.featured_products_collection].products %}
 {% endif %}
 
 {% if settings.featured_products_collection is not empty %}
-    {% if featured_products|length > 0 %}
+    {% if featured_products | length > 0 %}
         <div class="container">
             <div class="row">
                 <div class="col-xs-12">
-                    <h2 class="home__featured__heading section-heading">También te puede gustar</h2>
+                    <h2 class="home__featured__heading section-heading">{{ settings.featured_products_title }}</h2>
                 </div>
             </div>
             <div class="row featured__product__grid">
-                {% for product in featured_products|slice(0,4) %}
-                    <div class="col-sm-3">
-                        {% include "_product-card.twig" %}
+                {% set limit = settings.featured_products_limit is not empty 
+                    ? min(0+settings.featured_products_limit, 50)
+                    : 50
+                %}
+                {% for product in featured_products | slice(0, limit) %}
+                    <div class="col-sm-6 col-md-3">
+                        {% include "_product-card.twig" with {'card_height': '320px'} %}
                     </div>
                 {% endfor %}
             </div>
@@ -51,4 +55,3 @@
         </div>
     </div>
 {% endif %}
-

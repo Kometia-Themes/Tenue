@@ -2,15 +2,21 @@
 
 {% block body %}
 
-    {% include "_slider.twig" %}
+    {% include '_slider.twig' %}
 
-    {% include "_featured-collections.twig" %}
+    {% if not settings.hide_featured_collections %}
+      {% include '_featured-collections.twig' %}
+    {% endif %}
 
-    {% include "_featured-products.twig" %}
+    {% if not settings.hide_featured_products %}
+      {% include '_featured-products.twig' %}
+    {% endif %}
 
-    {% include "_full-width.banner.twig" %}
+    {% include '_full-width.banner.twig' %}
 
-    {% include "_front-blog-grid.twig" %}
+    {% if settings.enable_blog %}
+      {% include '_front-blog-grid.twig' %}
+    {% endif %}
 
 {% endblock body %}
 

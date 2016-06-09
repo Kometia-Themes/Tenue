@@ -1,13 +1,5 @@
 {% extends 'layout.twig' %}
 
-{% block main_title %}
-    {{ blog.meta_title }}
-{% endblock main_title %}
-
-{% block meta_description %}
-    {{ blog.meta_description }}
-{% endblock %}
-
 {% block body %}
     <div class="container">
         <div class="row">
@@ -25,9 +17,9 @@
                             <div class="col-xs-12 blog__item__img">
                                 <a class="blog__item__img__link" href="/blogs/{{ blog.permalink }}/posts/{{ post.permalink }}">
                                     {% if post.image_url %}
-                                        <img src="{{ post.image_url }}?w=1180&h=500&fit=crop" alt="{{ post.name }}" class="img-responsive">
+                                        <img src="{{ post.image_url }}?w=1180&h=500&fit=crop" alt="{{ post.name | escape }}" class="img-responsive">
                                     {% else %}
-                                        <img src="{{ 'transparent_1180_100.png' | asset_url }}" alt="{{ post.name }}" class="img-responsive">
+                                        <img src="{{ 'transparent_1180_100.png' | asset_url }}" alt="{{ post.name | escape }}" class="img-responsive">
                                     {% endif %}
                                 </a>
                             </div>

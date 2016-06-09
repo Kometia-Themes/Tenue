@@ -1,13 +1,9 @@
 {% extends 'layout.twig' %}
 
-{% block main_title %}
-    Colecciones
-{% endblock main_title %}
-
 {% block body %}
-    {% include "_featured-collections.twig" %}
+    {% include '_featured-collections.twig' %}
 
-    {% if collections|length > 0 %}
+    {% if collections | length > 0 %}
         <div class="container">
             <div class="row">
                 <div class="col-xs-12">
@@ -17,7 +13,7 @@
             <div class="row collection__grid collection__layout__all-items">
                 {% for collection in collections %}
                     <div class="col-sm-3">
-                        {% include "_collection-square.twig" %}
+                        {% include '_collection-square.twig' %}
                     </div>
                 {% endfor %}
             </div>
@@ -35,7 +31,7 @@
                     <h2 class="collections__heading section-heading">Todas las colecciones</h2>
                 </div>
             </div>
-            {% include "_collection-placeholder-grid-4.twig" %}
+            {% include '_collection-placeholder-grid-4.twig' %}
         </div>
     {% endif %}
 

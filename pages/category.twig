@@ -1,15 +1,11 @@
 {% extends 'layout.twig' %}
 
-{% block main_title %}
-    {{ category.title }}
-{% endblock main_title %}
-
 {% block body %}
     <div class="container">
         <div class="row">
             <div class="col-sm-12 text-center">
                 <h3 class="section-title title">
-                    {{ category.title }}
+                    {{ category.title | escape }}
                 </h3>
             </div>
         </div>
@@ -35,7 +31,7 @@
             <div class="col-sm-9">
                 <div class="row">
                     {% for product in products %}
-                        <div class="col-sm-4">
+                        <div class="col-sm-6 col-md-4">
                             {% include "_product-card.twig" %}
                         </div>
                         {{ loop.index % 3 == 0 ? '<br class="hidden-xs clear-both">': '' }}

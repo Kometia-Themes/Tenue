@@ -40,7 +40,7 @@
             {
               "type": "color",
               "id": "main_menu_background_color",
-              "label": "Fondo del Menu Principal",
+              "label": "Fondo del Menú Principal",
               "default": "#ffffff"
             },
             {
@@ -87,26 +87,20 @@
             },
             {
               "type": "color",
-              "id": "main_menu_background_color",
-              "label": "Fondo del Menu Principal",
-              "default": "#ffffff"
-            },
-            {
-              "type": "color",
               "id": "main_menu_border_color",
-              "label": "Borde del Menu Principal",
+              "label": "Borde del Menú Principal",
               "default": "#cecece"
             },
             {
               "type": "color",
               "id": "main_menu_link_color",
-              "label": "Links del Menu Principal",
+              "label": "Links del Menú Principal",
               "default": "#9B9B9B"
             },
             {
               "type": "color",
               "id": "main_menu_link_color_hover",
-              "label": "Links Hover del Menu Principal",
+              "label": "Links Hover del Menú Principal",
               "default": "#1B1B1B"
             },
             {
@@ -135,6 +129,18 @@
             },
             {
               "type": "color",
+              "id": "slide_btn_color",
+              "label": "Texto del botón del slide",
+              "default": "#ffffff"
+            },
+            {
+              "type": "color",
+              "id": "product_card_background_color",
+              "label": "Fondo de los productos",
+              "default": "#e2e2e2"
+            },
+            {
+              "type": "color",
               "id": "header_title_color",
               "label": "Título Colecciones",
               "default": "#ffffff"
@@ -142,7 +148,7 @@
             {
               "type": "color",
               "id": "header_desc_color",
-              "label": "Descripción Colecciónes",
+              "label": "Descripción Colecciones",
               "default": "#ffffff"
             },
             {
@@ -399,6 +405,21 @@
               "type": "checkbox",
               "id": "accept_amex",
               "label": "American Express"
+            },
+            {
+              "type": "checkbox",
+              "id": "accept_paypal",
+              "label": "PayPal"
+            },
+            {
+              "type": "checkbox",
+              "id": "accept_efectivo",
+              "label": "Pago en efectivo"
+            },
+            {
+              "type": "checkbox",
+              "id": "accept_spei",
+              "label": "SPEI"
             }
           ]
         }
@@ -532,12 +553,28 @@
               "type": "text",
               "id": "slide_3_btn_url",
               "label": "Hipervínculo"
+            },
+            {
+              "type": "checkbox",
+              "id": "slider_has_overlay",
+              "label": "Mostrar Opacidad de Imagen"
+            },
+            {
+              "type": "checkbox",
+              "id": "slider_responsive",
+              "label": "Slider Responsivo",
+              "info": "El slider responsivo necesita imagenes con un tamaño recomendado de 1180px X 500px o con una proporcion similar"
             }
           ]
         },
         {
-          "header": "Colecciónes Destacadas",
+          "header": "Colecciones Destacadas",
           "settings": [
+            {
+              "type": "checkbox",
+              "id": "hide_featured_collections",
+              "label": "Ocultar Colecciones Destacadas"
+            },
             {
               "type": "collection",
               "id": "featured_collection_1",
@@ -568,16 +605,39 @@
           "header": "Productos Destacados",
           "settings": [
             {
+              "type": "checkbox",
+              "id": "hide_featured_products",
+              "label": "Ocultar Productos Destacadas"
+            },
+            {
+              "type": "text",
+              "id": "featured_products_title",
+              "label": "Encabezado Colecciones Destacadas",
+              "default": "También te puede gustar"
+            },
+            {
               "type": "collection",
               "id": "featured_products_collection",
               "label": "Productos destacados",
               "default": ""
+            },
+            {
+              "type": "text",
+              "id": "featured_products_limit",
+              "label": "Límite de Productos a Mostrar",
+              "default": "4",
+              "info": "Para mostrar todos los productos de esta colección deja vacío este campo"
             }
           ]
         },
         {
           "header": "Blog Destacado",
           "settings": [
+            {
+              "type": "checkbox",
+              "id": "enable_blog",
+              "label": "Mostrar Blog"
+            },
             {
               "type": "blog",
               "id": "featured_blog",
