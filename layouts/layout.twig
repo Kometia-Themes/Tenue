@@ -55,18 +55,15 @@
     </head>
 
     <body role="document">
-
-        {{ settings.google_analytics }}
-
-        {{ include("_nav.twig") }}
+        {% include '_nav.twig' %}
 
         <div class="body-container">
-            {{ include("_notifications.twig") }}
+            {% include '_notifications.twig' %}
             {% block body %}
             {% endblock body %}
         </div>
         <footer class="container footer">
-            {{ include("_footer.twig") }}
+            {% include '_footer.twig' %}
         </footer>
 
         {% block body_js %}
