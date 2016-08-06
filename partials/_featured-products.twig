@@ -1,57 +1,62 @@
 {% set featured_products = [] %}
-{% if settings.featured_products_collection is not empty and collections[settings.featured_products_collection]is defined %}
-    {% set featured_products = collections[settings.featured_products_collection].products %}
+
+{% if settings.featured_products_collection is not empty and collections[settings.featured_products_collection] is defined %}
+
+{% set featured_products = collections[settings.featured_products_collection].products %}
+
 {% endif %}
 
 {% if settings.featured_products_collection is not empty %}
-    {% if featured_products | length > 0 %}
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12">
-                    <h2 class="home__featured__heading section-heading">{{ settings.featured_products_title }}</h2>
-                </div>
-            </div>
-            <div class="row featured__product__grid">
-                {% set limit = settings.featured_products_limit is not empty 
-                    ? min(0+settings.featured_products_limit, 50)
-                    : 50
-                %}
-                {% for product in featured_products | slice(0, limit) %}
-                    <div class="col-sm-6 col-md-3">
-                        {% include "_product-card.twig" with {'card_height': '320px'} %}
-                    </div>
-                {% endfor %}
-            </div>
-        </div>
-    {% endif %}
+
+{% if featured_products | length > 0 %}
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <h2 class="home__featured__heading section-heading">{{ settings.featured_products_title }}</h2>
+    </div>
+  </div>
+  <div class="row featured__product__grid">
+    {% set limit = settings.featured_products_limit is not empty
+    ? min(0+settings.featured_products_limit, 50)
+    : 50
+    %}
+    {% for product in featured_products | slice(0, limit) %}
+    <div class="col-sm-6 col-md-3">
+      {% include '_product-card.twig' with { 'card_height': '320px' } %}
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endif %}
 
 {% else %}
-    <div class="container placeholder-hover">
-        <div class="placeholder-helper">
-            <div class="placeholder-info">
-                <p>Esta sección mostrará tus productos destacados. Para definirlos dirígete al área de configuración del tema y asigna la colección que los contiene.</p>
-                <a href="/admin/collections" class="btn btn-placeholder">Gestionar colecciones</a>
-                <a href="/admin/themes" class="btn btn-placeholder">Ir a sección de temas</a>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-12">
-                <h2 class="home__featured__heading section-heading">También te puede gustar</h2>
-            </div>
-        </div>
-        <div class="row featured__product__grid">
-            <div class="col-sm-3">
-                {% include "_product-placeholder.twig" %}
-            </div>
-            <div class="col-sm-3">
-                {% include "_product-placeholder.twig" %}
-            </div>
-            <div class="col-sm-3">
-                {% include "_product-placeholder.twig" %}
-            </div>
-            <div class="col-sm-3">
-                {% include "_product-placeholder.twig" %}
-            </div>
-        </div>
+
+<div class="container placeholder-hover">
+  <div class="placeholder-helper">
+    <div class="placeholder-info">
+      <p>Esta sección mostrará tus productos destacados. Para definirlos dirígete al área de configuración del tema y asigna la colección que los contiene.</p>
+      <a href="/admin/collections" class="btn btn-placeholder">Gestionar colecciones</a>
+      <a href="/admin/themes" class="btn btn-placeholder">Ir a sección de temas</a>
     </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <h2 class="home__featured__heading section-heading">También te puede gustar</h2>
+    </div>
+  </div>
+  <div class="row featured__product__grid">
+    <div class="col-sm-3">
+      {% include '_product-placeholder.twig' %}
+    </div>
+    <div class="col-sm-3">
+      {% include '_product-placeholder.twig' %}
+    </div>
+    <div class="col-sm-3">
+      {% include '_product-placeholder.twig' %}
+    </div>
+    <div class="col-sm-3">
+      {% include '_product-placeholder.twig' %}
+    </div>
+  </div>
+</div>
 {% endif %}

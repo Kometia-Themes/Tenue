@@ -2,59 +2,60 @@
 
 {% block body %}
 
-    {% include '_slider.twig' %}
+{% include '_slider.twig' %}
 
-    {% if not settings.hide_featured_collections %}
-      {% include '_featured-collections.twig' %}
-    {% endif %}
+{% if not settings.hide_featured_collections %}
+  {% include '_featured-collections.twig' %}
+{% endif %}
 
-    {% if not settings.hide_featured_products %}
-      {% include '_featured-products.twig' %}
-    {% endif %}
+{% if not settings.hide_featured_products %}
+  {% include '_featured-products.twig' %}
+{% endif %}
 
-    {% include '_full-width.banner.twig' %}
+{% include '_full-width.banner.twig' %}
 
-    {% if settings.enable_blog %}
-      {% include '_front-blog-grid.twig' %}
-    {% endif %}
+{% if settings.enable_blog %}
+  {% include '_front-blog-grid.twig' %}
+{% endif %}
 
-{% endblock body %}
+{% endblock %}
 
 {% block body_js %}
-    {{ parent() }}
-    <script type="text/javascript">
-        var timeOut;
-        $(function() {
-            $('.slick-slider-home').slick({
-              dots: true,
-              arrows: false,
-              infinite: true,
-              speed: 500,
-              autoplay: true,
-              autoplaySpeed: 5000
-            });
-        });
+{{ parent() }}
 
-        $(window).load(function() {
-          squareItem('.collection__item--square');
-          if ( !isMobile() ) {
-            rectangleItem('.collection__item--rectangle', '.collection__item--square');
-          } else {
-            squareItem('.collection__item--rectangle');
-          }
+<script type="text/javascript">
+  var timeOut;
+  $(function() {
+    $('.slick-slider-home').slick({
+      dots: true,
+      arrows: false,
+      infinite: true,
+      speed: 500,
+      autoplay: true,
+      autoplaySpeed: 5000
+    });
+  });
 
-        });
+  $(window).load(function() {
+    squareItem('.collection__item--square');
+    if ( !isMobile() ) {
+      rectangleItem('.collection__item--rectangle', '.collection__item--square');
+    } else {
+      squareItem('.collection__item--rectangle');
+    }
 
-        $(window).resize(function() {
-            clearTimeout(timeOut);
-            timeOut = setTimeout(function(){
-                squareItem('.collection__item--square');
-                if ( !isMobile() ) {
-                  rectangleItem('.collection__item--rectangle', '.collection__item--square');
-                } else {
-                  squareItem('.collection__item--rectangle');
-                }
-            }, 300);
-        });
-    </script>
-{% endblock body_js %}
+  });
+
+  $(window).resize(function() {
+    clearTimeout(timeOut);
+    timeOut = setTimeout(function(){
+      squareItem('.collection__item--square');
+      if ( !isMobile() ) {
+        rectangleItem('.collection__item--rectangle', '.collection__item--square');
+      } else {
+        squareItem('.collection__item--rectangle');
+      }
+    }, 300);
+  });
+</script>
+{% endblock %}

@@ -1,52 +1,57 @@
 {% extends 'layout.twig' %}
 
 {% block body %}
-    {% if products | length > 0 %}
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12">
-                    <h2 class="products__title section-heading">Productos</h2>
-                </div>
-            </div>
-            <div class="row products__grid">
-                {% for product in products %}
-                    <div class="col-sm-6 col-md-4">
-                        {% include '_product-card.twig' %}
-                        {% if loop.index % 3 == 0%}
-                            <br class="clear-both">
-                        {% endif %}
-                    </div>
-                {% endfor %}
-            </div>
 
-            <div class="row text-center">
-                {% include '_pagination.twig' %}
-            </div>
-        </div>
-    {% else %}
-        <div class="container placeholder-hover">
-            <div class="placeholder-helper">
-                <div class="placeholder-info">
-                    <p>Todavía no hay productos. Una vez que comiences a agregarlos, éstos se mostrarán aquí una vez activados.</p>
-                    <a href="/admin/products" class="btn btn-placeholder">Agregar Productos</a>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12">
-                    <h2 class="products__title section-heading">Productos</h2>
-                </div>
-            </div>
-            <div class="row products__grid">
-                <div class="col-sm-4">
-                    {% include '_product-placeholder.twig' %}
-                </div>
-                <div class="col-sm-4">
-                    {% include '_product-placeholder.twig' %}
-                </div>
-                <div class="col-sm-4">
-                    {% include '_product-placeholder.twig' %}
-                </div>
-            </div>
-        </div>
-    {% endif %}
-{% endblock body %}
+{% if products | length > 0 %}
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <h2 class="products__title section-heading">Productos</h2>
+    </div>
+  </div>
+  <div class="row products__grid">
+
+    {% for product in products %}
+    <div class="col-sm-6 col-md-4">
+      {% include '_product-card.twig' %}
+      {% if loop.index % 3 == 0%}
+      <br class="clear-both">
+      {% endif %}
+    </div>
+    {% endfor %}
+  </div>
+
+  <div class="row text-center">
+    {% include '_pagination.twig' %}
+  </div>
+</div>
+
+{% else %}
+
+<div class="container placeholder-hover">
+  <div class="placeholder-helper">
+    <div class="placeholder-info">
+      <p>Todavía no hay productos. Una vez que comiences a agregarlos, éstos se mostrarán aquí una vez activados.</p>
+      <a href="/admin/products" class="btn btn-placeholder">Agregar Productos</a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <h2 class="products__title section-heading">Productos</h2>
+    </div>
+  </div>
+  <div class="row products__grid">
+    <div class="col-sm-4">
+      {% include '_product-placeholder.twig' %}
+    </div>
+    <div class="col-sm-4">
+      {% include '_product-placeholder.twig' %}
+    </div>
+    <div class="col-sm-4">
+      {% include '_product-placeholder.twig' %}
+    </div>
+  </div>
+</div>
+{% endif %}
+
+{% endblock %}

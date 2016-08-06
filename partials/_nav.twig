@@ -1,79 +1,79 @@
 <nav class="navbar navbar-default" id="main-menu">
-    <div class="container">
-        {# Brand and toggle get grouped for better mobile display #}
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-menu-collapse" aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/">
-                {% if settings.use_logo %}
-                    <img src="{{ settings['nav_logo'] }}" class="img-responsive brand-logo">
-                {% else %}
-                    <span class="brand-text">{{ store.name }}</span>
-                {% endif %}
-            </a>
-        </div>
+  <div class="container">
+    {# Brand and toggle get grouped for better mobile display #}
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-menu-collapse" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">
+        {% if settings.use_logo %}
+        <img src="{{ settings['nav_logo'] }}" class="img-responsive brand-logo">
+        {% else %}
+        <span class="brand-text">{{ store.name }}</span>
+        {% endif %}
+      </a>
+    </div>
 
-        {# Collect the nav links, forms, and other content for toggling #}
-        <div class="collapse navbar-collapse" id="main-menu-collapse">
-            <ul class="nav navbar-nav navbar-left">
-                {% for link in menus.main %}
-                   {% if link.children | length >= 1 %}
-                    <li class="dropdown">
-                        <a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                            {{ link.name }} <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu">
-                          {% for children in link.children %}
-                          <li>
-                            <a href="{{ children.url }}">
-                                {{ children.name }}
-                            </a>
-                          </li>
-                          {% endfor %}
-                        </ul>
-                    </li>
-                   {% else %}
-                    <li>
-                        <a href="{{ link.url }}">
-                            {{ link.name }}
-                        </a>
-                    </li>
-                   {% endif %}
-                {% endfor %}
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a href="/carrito">
-                        <i class="fa fa-shopping-cart"></i>
-                        {% if cart.total_items > 0 %}
-                            <sup class="cart-notification">{{ cart.total_items }}</sup>
-                        {% endif %}
-                    </a>
-                </li>
-                <li class="dropdown search-dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"aria-expanded="false">
-                        <i class="fa fa-search"></i>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <form action="/buscar" method="get" class="form-inline">
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control input-lg" name="q" placeholder="Busca por modelo, color o palabra">
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
-                                        </span>
-                                    </div>
-                                </div>
-                            </form>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </div>{# /.navbar-collapse #}
-    </div>{# /.container-fluid #}
+    {# Collect the nav links, forms, and other content for toggling #}
+    <div class="collapse navbar-collapse" id="main-menu-collapse">
+      <ul class="nav navbar-nav navbar-left">
+        {% for link in menus.main %}
+        {% if link.children | length >= 1 %}
+        <li class="dropdown">
+          <a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+            {{ link.name }} <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            {% for children in link.children %}
+            <li>
+              <a href="{{ children.url }}">
+                {{ children.name }}
+              </a>
+            </li>
+            {% endfor %}
+          </ul>
+        </li>
+        {% else %}
+        <li>
+          <a href="{{ link.url }}">
+            {{ link.name }}
+          </a>
+        </li>
+        {% endif %}
+        {% endfor %}
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+          <a href="/carrito">
+            <i class="fa fa-shopping-cart"></i>
+            {% if cart.total_items > 0 %}
+            <sup class="cart-notification">{{ cart.total_items }}</sup>
+            {% endif %}
+          </a>
+        </li>
+        <li class="dropdown search-dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"aria-expanded="false">
+            <i class="fa fa-search"></i>
+          </a>
+          <ul class="dropdown-menu">
+            <li>
+              <form action="/buscar" method="get" class="form-inline">
+                <div class="form-group">
+                  <div class="input-group">
+                    <input type="text" class="form-control input-lg" name="q" placeholder="Busca por modelo, color o palabra">
+                    <span class="input-group-btn">
+                      <button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
+                    </span>
+                  </div>
+                </div>
+              </form>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>{# /.navbar-collapse #}
+  </div>{# /.container-fluid #}
 </nav>

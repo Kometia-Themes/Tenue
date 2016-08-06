@@ -1,16 +1,16 @@
 {% extends 'layout.twig' %}
 
 {% block body %}
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12">
-                <h2 class="page__title section-heading">{{ page.title | escape }}</h2>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-12 page__content">
-                <p>{{ page.content }}</p>
-            </div>
-        </div>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <h2 class="page__title section-heading">{{ page.title | escape }}</h2>
     </div>
-{% endblock body %}
+  </div>
+  <div class="row">
+    <div class="col-xs-12 page__content">
+      <p>{{ page.content }}</p>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,46 +1,43 @@
 {% extends 'layout.twig' %}
 
 {% block body %}
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12 text-center">
-                <h3 class="section-title title">
-                    {{ category.title | escape }}
-                </h3>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-sm-3 products-filter">
-                <h4 class="products-filter__title title">Categorias</h4>
-                <hr>
-                <div class="form-group products-filter__container">
-                    {% if categories | length > 0 %}
-                        {% for categoryElement in categories %}
-                            {% include '_category_tree_item.twig' with {
-                            'category' : categoryElement,
-                            'current'  : category
-                            } only %}
-                        {% endfor %}
-                    {% else %}
-                        No hay subcategorías
-                    {% endif %}
-                </div>
-            </div>
-
-            <div class="col-sm-9">
-                <div class="row">
-                    {% for product in products %}
-                        <div class="col-sm-6 col-md-4">
-                            {% include "_product-card.twig" %}
-                        </div>
-                        {{ loop.index % 3 == 0 ? '<br class="hidden-xs clear-both">': '' }}
-                    {% endfor %}
-                </div>
-                <div class="row text-center">
-                    {% include '_pagination.twig' %}
-                </div>
-            </div>
-        </div>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12 text-center">
+      <h3 class="section-title title">
+        {{ category.title | escape }}
+      </h3>
     </div>
-{% endblock body %}
+  </div>
+
+  <div class="row">
+    <div class="col-sm-3 products-filter">
+      <h4 class="products-filter__title title">Categorias</h4>
+      <hr>
+      <div class="form-group products-filter__container">
+      {% if categories | length > 0 %}
+        {% for categoryElement in categories %}
+          {% include '_category_tree_item.twig' with { 'category': categoryElement, 'current': category } only %}
+        {% endfor %}
+      {% else %}
+      No hay subcategorías
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="col-sm-9">
+    <div class="row">
+      {% for product in products %}
+      <div class="col-sm-6 col-md-4">
+        {% include '_product-card.twig' %}
+      </div>
+      {{ loop.index % 3 == 0 ? '<br class="hidden-xs clear-both">': '' }}
+      {% endfor %}
+    </div>
+    <div class="row text-center">
+      {% include '_pagination.twig' %}
+    </div>
+  </div>
+</div>
+</div>
+{% endblock %}
