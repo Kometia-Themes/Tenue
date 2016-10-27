@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <!--[if lt IE 7]><html class="no-js ie6 oldie" lang="en"><![endif]-->
 <!--[if IE 7]><html class="no-js ie7 oldie" lang="en"><![endif]-->
 <!--[if IE 8]><html class="no-js ie8 oldie" lang="en"><![endif]-->
@@ -46,7 +46,7 @@
 
     <div class="body-container">
         {% include '_notifications.twig' %}
-        {% block body %}{% endblock body %}
+        {% block body %}{% endblock %}
     </div>
     <footer class="container footer">
         {% include '_footer.twig' %}
@@ -60,6 +60,6 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-placeholder/2.3.1/jquery.placeholder.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/imgLiquid/0.9.944/js/imgLiquid-min.js"></script>
     <script type="text/javascript" src="{{ 'app.js' | asset_url }}"></script>
-    {% endblock body_js %}
+    {% endblock %}
 </body>
 </html>

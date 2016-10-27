@@ -36,7 +36,6 @@
       <tbody></tbody>
       {% for product in results.products %}
       <tr>
-
         <td width="5%">
           <a href="/productos/{{ product.permalink }}">
             <img src="{{ product.image_url }}?w=128&h=128" class="img img-responsive center-block pull-left" alt="{{ product.name | escape  }}">

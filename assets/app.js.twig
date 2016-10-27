@@ -1,0 +1,27 @@
+$(document).ready(function() {
+  if ($('.js-slider-home div').size() > 0) {
+    $('.js-slider-home').slick({
+      dots: true,
+      arrows: false,
+      infinite: true,
+      speed: 500,
+      autoplay: true,
+      autoplaySpeed: 5000
+    });
+  }
+
+  $("li.dropdown-submenu > a").on("click", function() {
+    $("li.dropdown-submenu").removeClass("open");
+    if ($(this).parent("li.dropdown-submenu").hasClass("in-use")) {
+      $(this).parents("li.dropdown-submenu").addClass("open");
+      $(this).parent("li.dropdown-submenu").removeClass("open");
+      $(this).parent("li.dropdown-submenu").removeClass("in-use");
+      $(this).siblings('ul.dropdown-menu').children("li.dropdown-submenu").removeClass("open");
+      $(this).siblings('ul.dropdown-menu').children("li.dropdown-submenu").removeClass("in-use");
+    } else {
+      $(this).parents("li.dropdown-submenu").addClass("open");
+      $(this).parents("li.dropdown-submenu").addClass("in-use");
+    }
+    return false;
+  });
+});

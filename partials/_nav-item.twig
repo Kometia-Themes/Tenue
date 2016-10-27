@@ -1,0 +1,17 @@
+{% if link.children | length > 0 %}
+<li class="dropdown-submenu">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ link.name }}</a>
+  <ul class="dropdown-menu">
+    {% for children in link.children %}
+      {% include '_nav-item.twig' with {'link': children} %}
+    {% endfor %}
+  </ul>
+</li>
+{% else %}
+<li>
+  <a href="{{ link.url }}">
+    {{ link.name }}
+  </a>
+</li>
+{% endif %}
+

@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-xs-12 no-gut">
       {% if settings.slide_1 or settings.slide_2 or settings.slide_3 or settings.slide_4 %}
-      <div class="slick-slider-home {% if settings.slider_responsive %} slider-responsive {% endif %}">
+      <div class="js-slider-home slick-slider-home {% if settings.slider_responsive %} slider-responsive {% endif %}">
         {% for i in 1..3 %}
         {% set slide = 'slide_'~i %}
         {% if settings[slide] %}
@@ -44,7 +44,7 @@
               {% if settings[slide_btn] %}
               <div class="row">
                 <div class="col-sm-4">
-                  <a href="{{ settings[slide_btn_url] }}" class="slide_btn btn btn-block">{{ settings[slide_btn_text] }}</a>
+                  <a href="{{ settings[slide_btn_url] }}" class="btn btn-block">{{ settings[slide_btn_text] }}</a>
                 </div>
               </div>
               {% endif %}
