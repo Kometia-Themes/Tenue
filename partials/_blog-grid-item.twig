@@ -1,8 +1,8 @@
 <div class="blog-grid-item">
-    <a class="blog-grid-item__thumb-link" href="/blogs/{{ blog.permalink }}/posts/{{ post.permalink }}">
-        <img src="{{ post.image_url }}?w=370&h=200&fit=crop" alt="{{ post.name }}" class="img-responsive">
-    </a>
-    <h5 class="blog-grid-item__title">{{ post.title }}</h5>
-    <p class="blog-grid-item__summary">{{ post.summary }}</p>
-    <a href="/blogs/{{ blog.permalink }}/posts/{{ post.permalink }}" class="blog-read-more">Leer más</a>
+  <a class="blog-grid-item__thumb-link" href="/blogs/{{ blog.permalink }}/posts/{{ post.permalink }}">
+    <img src="{{ post.image_url }}?w=370&h=200&fit=crop" alt="{{ post.name | escape }}" class="img-responsive">
+  </a>
+  <h5 class="blog-grid-item__title">{{ post.title | escape }}</h5>
+  <p class="blog-grid-item__summary">{{ post.summary }}</p>
+  <a href="/blogs/{{ blog.permalink }}/posts/{{ post.permalink }}" class="blog-read-more">Leer más</a>
 </div>

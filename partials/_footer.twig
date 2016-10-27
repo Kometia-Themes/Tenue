@@ -1,95 +1,158 @@
+{% set footer_has_navigation = settings.footer_display_navigation and menus.footer | length > 0 %}
+{% set footer_has_contact = settings.footer_display_contact_data %}
+{% set footer_has_newsletter = settings.footer_display_newsletter %}
+{% set footer_has_social = settings.footer_display_social and (
+  settings.twitter_link is not empty
+  or settings.facebook_link is not empty
+  or settings.google_link is not empty
+  or settings.youtube_link is not empty
+  or settings.vimeo_link is not empty
+  or settings.pinterest_link is not empty
+  or settings.instagram_link is not empty
+  or settings.tumblr_link is not empty
+) %}
+
+{% set footer_cols = footer_has_navigation + footer_has_contact + footer_has_social + footer_has_newsletter %}
+
 <div class="row footer-top">
-    <div class="col-sm-6 col-md-3">
-        <h5 class="footer-title">Enlaces rápidos</h5>
-        <ul class="footer-menu">
-            {% for links in menus.footer %}
-                <li>
-                    <a href="{{ links.url }}">
-                        {{ links.name }}
-                    </a>
-                </li>
-            {% endfor %}
-        </ul>
-        <br class="visible-xs-block">
-    </div>
+  {% if footer_has_navigation %}
+  <div class="col-sm-{{ 12 / footer_cols }}">
+    <h5 class="footer-title">Enlaces rápidos</h5>
+    <ul class="footer-menu">
+      {% for links in menus.footer %}
+      <li>
+        <a href="{{ links.url }}">
+          {{ links.name }}
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+    <br class="visible-xs-block">
+  </div>
+  {% endif %}
 
-    {% if settings.footer_display_social %}
-        <div class="col-sm-6 col-md-3">
-            <h5 class="footer-title">Síguenos en</h5>
-            <ul class="footer-social-icons">
-                {% if settings.facebook_link is not empty %}
-                    <li><a href="{{ settings.facebook_link }}" target="_blank"><i class="fa fa-facebook"></i> Facebook</a></li>
-                {% endif %}
-                {% if settings.twitter_link is not empty %}
-                    <li><a href="{{ settings.twitter_link }}" target="_blank"><i class="fa fa-twitter"></i> Twitter</a></li>
-                {% endif %}
-                {% if settings.google_link is not empty %}
-                    <li><a href="{{ settings.google_link }}" target="_blank"><i class="fa fa-google-plus"></i> Google</a></li>
-                {% endif %}
-                {% if settings.youtube_link is not empty %}
-                    <li><a href="{{ settings.youtube_link }}" target="_blank"><i class="fa fa-youtube"></i> Youtube</a></li>
-                {% endif %}
-                {% if settings.vimeo_link is not empty %}
-                    <li><a href="{{ settings.vimeo_link }}" target="_blank"><i class="fa fa-vimeo"></i> Vimeo</a></li>
-                {% endif %}
-                {% if settings.pinterest_link is not empty %}
-                    <li><a href="{{ settings.pinterest_link }}" target="_blank"><i class="fa fa-pinterest-p"></i> Pinterest</a></li>
-                {% endif %}
-                {% if settings.instagram_link is not empty %}
-                    <li><a href="{{ settings.instagram_link }}" target="_blank"><i class="fa fa-instagram"></i> Instagram</a></li>
-                {% endif %}
-                {% if settings.tumblr_link is not empty %}
-                    <li><a href="{{ settings.tumblr_link }}" target="_blank"><i class="fa fa-tumblr"></i> Tumblr</a></li>
-                {% endif %}
+  {% if footer_has_social %}
+  <div class="col-sm-{{ 12 / footer_cols }}">
+    <h5 class="footer-title">Síguenos en</h5>
+    <ul class="footer-social-icons">
+      {% if settings.facebook_link is not empty %}
+      <li>
+        <a href="{{ settings.facebook_link }}" target="_blank">
+          <i class="fa fa-facebook"></i> Facebook
+        </a>
+      </li>
+      {% endif %}
+      {% if settings.twitter_link is not empty %}
+      <li>
+        <a href="{{ settings.twitter_link }}" target="_blank">
+          <i class="fa fa-twitter"></i> Twitter
+        </a>
+      </li>
+      {% endif %}
+      {% if settings.google_link is not empty %}
+      <li>
+        <a href="{{ settings.google_link }}" target="_blank">
+          <i class="fa fa-google-plus"></i> Google
+        </a>
+      </li>
+      {% endif %}
+      {% if settings.youtube_link is not empty %}
+      <li>
+        <a href="{{ settings.youtube_link }}" target="_blank">
+          <i class="fa fa-youtube"></i> Youtube
+        </a>
+      </li>
+      {% endif %}
+      {% if settings.vimeo_link is not empty %}
+      <li>
+        <a href="{{ settings.vimeo_link }}" target="_blank">
+          <i class="fa fa-vimeo"></i> Vimeo
+        </a>
+      </li>
+      {% endif %}
+      {% if settings.pinterest_link is not empty %}
+      <li>
+        <a href="{{ settings.pinterest_link }}" target="_blank">
+          <i class="fa fa-pinterest-p"></i> Pinterest
+        </a>
+      </li>
+      {% endif %}
+      {% if settings.instagram_link is not empty %}
+      <li>
+        <a href="{{ settings.instagram_link }}" target="_blank">
+          <i class="fa fa-instagram"></i> Instagram
+        </a>
+      </li>
+      {% endif %}
+      {% if settings.tumblr_link is not empty %}
+      <li>
+        <a href="{{ settings.tumblr_link }}" target="_blank">
+          <i class="fa fa-tumblr"></i> Tumblr
+        </a>
+      </li>
+      {% endif %}
+    </ul>
+    <br class="visible-xs-block">
+  </div>
+  {% endif %}
 
-            </ul>
-            <br class="visible-xs-block">
+  {% if footer_has_contact %}
+  <div class="col-sm-{{ 12 / footer_cols }}">
+    <h5 class="footer-title">Contacto</h5>
+    <p>
+      {{ settings.footer_contact_data | nl2br }}
+    </p>
+    <br class="visible-xs-block">
+  </div>
+  {% endif %}
+
+  {% if footer_has_newsletter %}
+  <div class="col-sm-{{ 12 / footer_cols }}">
+    <h5 class="footer-title">Newsletter</h5>
+    <p>{{ settings.mailing_list_text }}</p>
+    <form class="form-inline" id="newsletterForm" action="/contacto">
+      <div class="row">
+        <div class="col-xs-9" style="padding-right:0;">
+          <div class="form-group">
+            <input type="email" class="form-control" id="newsletterMail" placeholder="Email">
+          </div>
         </div>
-    {% endif %}
-
-    {% if settings.footer_display_contact_data %}
-        <div class="col-sm-6 col-md-3">
-            <h5 class="footer-title">Contacto</h5>
-            <p>
-                {{ settings.footer_contact_data|nl2br }}
-            </p>
-            <br class="visible-xs-block">
+        <div class="col-xs-3" style="padding-left:0;">
+          <button type="submit" class="btn btn-block">
+            <i class="fa fa-chevron-right"></i>
+          </button>
         </div>
-    {% endif %}
-
-    {% if settings.footer_display_newsletter %}
-        <div class="col-sm-6 col-md-3">
-            <h5 class="footer-title">Newsletter</h5>
-            <p>{{ settings.mailing_list_text }}</p>
-            <form class="form-inline" id="newsletterForm">
-                <div class="row">
-                    <div class="col-xs-9" style="padding-right:0;">
-                        <div class="form-group">
-                            <input type="email" class="form-control" id="newsletterMail" placeholder="Email">
-                        </div>
-                    </div>
-                    <div class="col-xs-3" style="padding-left:0;">
-                        <button type="submit" class="btn btn-block"><i class="fa fa-chevron-right"></i></button>
-                    </div>
-                </div>
-            </form>
-            <p class="newsletter-content">Al introducir su dirección de correo electrónico, usted acepta recibir nuestras ofertas, promociones y otros mensajes comerciales.<br/>
-        </div>
-    {% endif %}
+      </div>
+    </form>
+    <p class="newsletter-content">Al introducir su dirección de correo electrónico, usted acepta recibir nuestras ofertas, promociones y otros mensajes comerciales.</p>
+  </div>
+  {% endif %}
 </div>
+
 <div class="row footer-bottom">
-    <div class="col-sm-6 text-left">
-        <p class="copyright">&copy;2016 {{ store.name }} | Desarrollado por SHOPERTI</p>
-    </div>
-    <div class="col-sm-6 text-right payment-methods">
-        {% if settings.accept_visa %}
-            <img src="{{ 'visa.png'|asset_url }}" alt="Visa">
-        {% endif %}
-        {% if settings.accept_mastercard %}
-            <img src="{{ 'master_card.png'|asset_url }}" alt="Master Card">
-        {% endif %}
-        {% if settings.accept_amex %}
-            <img src="{{ 'amex.png'|asset_url }}" alt="American Express">
-        {% endif %}
-    </div>
+  <div class="col-sm-6 text-left">
+    <p class="copyright">
+      &copy; {{ 'now' | date("Y") }} {{ store.name }} - Derechos reservados | <a href="https://www.shoperti.com">Tienda generada con Shoperti</a>
+    </p>
+  </div>
+  <div class="col-sm-6 text-right payment-methods">
+    {% if settings.accept_visa %}
+    <img src="{{ 'visa.png' | payment_img_url }}" alt="Visa">
+    {% endif %}
+    {% if settings.accept_mastercard %}
+    <img src="{{ 'mastercard.png' | payment_img_url }}" alt="Master Card">
+    {% endif %}
+    {% if settings.accept_amex %}
+    <img src="{{ 'amex.png' | payment_img_url }}" alt="American Express">
+    {% endif %}
+    {% if settings.accept_paypal %}
+    <img src="{{ 'paypal.png' | payment_img_url }}" alt="Paypal">
+    {% endif %}
+    {% if settings.accept_efectivo %}
+    <img src="{{ 'cash.png' | payment_img_url }}" alt="Efectivo">
+    {% endif %}
+    {% if settings.accept_spei %}
+    <img src="{{ 'spei.png' | payment_img_url }}" alt="SPEI">
+    {% endif %}
+  </div>
 </div>

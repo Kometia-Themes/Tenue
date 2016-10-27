@@ -1,1 +1,1 @@
-# Shoperti Tenue theme
+# Shoperti Tenue Theme

@@ -1,204 +1,204 @@
 {% extends 'layout.twig' %}
 
-{% block main_title %}
-    {{ product.name }}
-{% endblock main_title %}
-
 {% block body %}
-    {% if product.images|length <= 3 %}
-        <style type="text/css">
-            .slick-list {
-                padding: 0 !important;
-            }
-            .slider-nav {
-                width: 100%;
-                margin: 0;
-            }
-        </style>
-    {% endif %}
 
-    <div class="container">
-        <div class="row product">
-            <div class="col-sm-6">
-                <div class="slider-for">
-                    {% for image in product.images %}
-                        <div class="img-wrapper product__images product__images--for">
-                            <img src="{{ image.url }}?w=575&h=620">
-                        </div>
-                    {% else %}
-                        <div class="img-wrapper product__images product__images--for">
-                            <img src="{{ 'placeholder_product.svg' | asset_url }}">
-                        </div>
-                    {% endfor %}
-                </div>
-                {% if product.images|length > 0 %}
-                    <div class="slider-nav hidden-xs">
-                        {% for image in product.images %}
-                            <div class="img-wrapper product__images product__images--nav">
-                                <img src="{{ image.url }}?w=185&h=152">
-                            </div>
-                        {% endfor %}
-                    </div>
-                {% endif %}
-            </div>
-            <div class="col-sm-6">
-                {% if product.vendor %}
-                    <p class="product__vendor">Marca: <span class="product__vendor__name">{{ product.vendor.name }}</span></p>
-                {% endif %}
-                <h3 class="section-heading product__title">{{ product.name }}</h3>
-                <p class="product__description">{{ product.description | raw }}</p>
-                <h5 class="product___heading">Precio</h5>
-                <p class="product__price"><span class="final-price js-product-price-amount">{{ product.price | money('symbol', 'code') }}</span><span class="compared-price js-product-price-compared-amount">{{ product.sku.compared_price is defined ? product.sku.compared_price | money('symbol', 'code') : '' }}</span></p>
-                <form class="product_selection" action="/carrito/agregar" method="post">
-                    <input type="hidden" name="sku_id" value="{{ product.sku.id }}">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            {% for modifier, options in product.skus_modifiers %}
-                                <div class="product__vars">
-                                    <h5 class="product__heading">{{ modifier }}</h5>
-                                    <select class="selectpicker js-variant-select" title="Elegir {{ modifier }}" name="{{ loop.index0 }}" id="{{ loop.index0 }}">
-                                        <option></option>
-                                        {% for option in options %}
-                                            <option value="{{ loop.index0 }}">{{ option }}</option>
-                                        {% endfor %}
-                                    </select>
-                                </div>
-                            {% endfor %}
+{% if product.images | length <= 3 %}
+<style type="text/css">
+  .slick-list {
+    padding: 0 !important;
+  }
+  .slider-nav {
+    width: 100%;
+    margin: 0;
+  }
 
-                            <div class="product__vars">
-                                <h5 class="product__heading">Cantidad</h5>
-                                <select class="selectpicker" title="Cantidad de producto" name="quantity" id="quantity">
-                                    {% for qty in 1..5 %}
-                                        <option value="{{ qty }}"{{ qty == item.quantity ? ' selected="selected"' : null }}>{{ qty }}</option>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                        </div>
-                    </div>
+</style>
+{% endif %}
 
-                    <div class="row product__btn">
-                        <div class="col-xs-12">
-                            {% if product.is_in_stock %}
-                                <button type="submit" class="btn btn-block js-add-to-cart">
-                                    <i class="fa fa-cart-plus"></i> Añadir al carrito
-                                </button>
-                                <button type="submit" class="btn btn-block js-add-to-cart-disabled" disabled="disabled">
-                                    No disponible
-                                </button>
-                            {% else %}
-                                <button class="btn btn-block js-add-to-cart-disabled" disabled="disabled">
-                                    No disponible
-                                </button>
-                            {% endif %}
-                        </div>
-                    </div>
-                </form>
-            </div>
+<div class="container">
+  <div class="row product">
+    <div class="col-sm-6">
+      <div class="slider-for">
+        {% for image in product.images %}
+        <div class="fill-image product__images product__images--for" data-imgLiquid-fill="false">
+          <img src="{{ image.url }}?w=575&h=620">
         </div>
+        {% else %}
+        <div class="img-wrapper product__images product__images--for">
+          <img src="{{ 'placeholder_product.svg' | asset_url }}">
+        </div>
+        {% endfor %}
+      </div>
+      {% if product.images | length > 0 %}
+      <div class="slider-nav hidden-xs hidden-sm">
+        {% for image in product.images %}
+        <div class="fill-image product__images product__images--nav" data-imgLiquid-fill="false">
+          <img src="{{ image.url }}?w=185&h=152">
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
     </div>
-    {% include "_related-products.twig" with {'related_products': related_products} only %}
-{% endblock body %}
+    <div class="col-sm-6">
+      {% if product.vendor %}
+      <p class="product__vendor">Marca:
+        <span class="product__vendor__name">{{ product.vendor.name }}</span>
+      </p>
+      {% endif %}
+      <h3 class="section-heading product__title">{{ product.name }}</h3>
+      <div class="product__description">{{ product.description | raw }}</div>
+      <h5 class="product___heading">Precio</h5>
+      <p class="product__price">
+        <span class="final-price js-product-price-amount">{{ product.price | money('symbol', 'code') }}</span>
+        <span class="compared-price js-product-price-compared-amount">{{ product.sku.compared_price is defined ? product.sku.compared_price | money('symbol', 'code') : '' }}</span>
+      </p>
+      <form class="product_selection" action="/carrito/agregar" method="post">
+        <input type="hidden" name="sku_id" value="{{ product.sku.id }}">
+        <div class="row">
+          <div class="col-md-8">
+            {% for modifier, options in product.skus_modifiers %}
+            <div class="product__vars">
+              <h5 class="product__heading">{{ modifier }}</h5>
+              <select class="selectpicker js-variant-select" title="Elegir {{ modifier }}" name="{{ loop.index0 }}" id="{{ loop.index0 }}">
+                <option></option>
+                {% for option in options %}
+                <option value="{{ loop.index0 }}">{{ option }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            {% endfor %}
+
+            <div class="product__vars">
+              <h5 class="product__heading">Cantidad</h5>
+              <select class="selectpicker" title="Cantidad de producto" name="quantity" id="quantity">
+                {% for qty in 1..5 %}
+                <option value="{{ qty }}" {{ qty == item.quantity ? ' selected="selected"' : null }}>{{ qty }}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="row product__btn">
+          <div class="col-xs-12">
+            {% if product.is_in_stock %}
+            <button type="submit" class="btn btn-block js-add-to-cart">
+              <i class="fa fa-cart-plus"></i>
+              Añadir al carrito
+            </button>
+            <button type="submit" class="btn btn-block js-add-to-cart-disabled" disabled="disabled">
+              No disponible
+            </button>
+            {% else %}
+            <button class="btn btn-block js-add-to-cart-disabled" disabled="disabled">
+              No disponible
+            </button>
+            {% endif %}
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% include '_related-products.twig' with {'related_products': related_products} only %}
+
+{% endblock %}
 
 {% block body_js %}
-    {{ parent() }}
+{{ parent() }}
 
-    {% if product.is_in_stock %}
-        <script type="text/javascript">
-            var skus = {{ product.skus | json }};
+{% if product.is_in_stock %}
+<script type="text/javascript">
+  var skus = {{ product.skus | json }};
 
-            $('.add-to-cart-disabled').hide();
-            showSelectedSku();
+  $('.add-to-cart-disabled').hide();
+  showSelectedSku();
 
-            function showSelectedSku() {
-                // only one sku, no variants to validate
-                if (skus.length == 1) {
-                    return updateSkuControls(skus[0]);
-                }
+  function showSelectedSku() {
+  // only one sku, no variants to validate
+  if (skus.length == 1) {
+    return updateSkuControls(skus[0]);
+  }
 
-                // get the product variant modifiers from the selects
-                var selectedModifiers = [];
-                $('.js-variant-select').each(function () {
-                    selectedModifiers.push($(this).find(":selected").text());
-                });
+  // get the product variant modifiers from the selects
+  var selectedModifiers = [];
+  $('.js-variant-select').each(function() {
+    selectedModifiers.push($(this).find(":selected").text());
+  });
 
-                var foundSku = null;
-                // check if there's an sku with the selected modifiers
-                skus.forEach(function (sku) {
-                    var modifiers = sku.modifiers;
-                    if ($(modifiers).not(selectedModifiers).length === 0
-                        && $(selectedModifiers).not(modifiers).length === 0) {
-                        foundSku = sku;
-                        return false;
-                    }
-                });
+  var foundSku = null;
+  // check if there's an sku with the selected modifiers
+  skus.forEach(function(sku) {
+    var modifiers = sku.modifiers;
+    if ($(modifiers).not(selectedModifiers).length === 0 && $(selectedModifiers).not(modifiers).length === 0) {
+      foundSku = sku;
+      return false;
+    }
+  });
 
-                return updateSkuControls(foundSku);
-            }
+  return updateSkuControls(foundSku);
+}
 
-            function updateSkuControls(sku) {
-                var enabledAddButton = $('.js-add-to-cart');
-                var disabledAddButton = $('.js-add-to-cart-disabled');
-                var comparedPriceElement = $('.js-product-price-compared-amount');
+function updateSkuControls(sku) {
+  var enabledAddButton = $('.js-add-to-cart');
+  var disabledAddButton = $('.js-add-to-cart-disabled');
+  var comparedPriceElement = $('.js-product-price-compared-amount');
 
-                if (sku !== null) {
-                    if (sku.stock_policy !== 'none' && sku.in_stock < 1) {
-                        sku = null;
-                    }
-                }
+  if (sku !== null) {
+    if (sku.stock_policy !== 'none' && sku.in_stock < 1) {
+      sku = null;
+    }
+  }
 
-                if (sku !== null) {
-                    disabledAddButton.hide();
-                    enabledAddButton.show();
-                    $('input[name=sku_id]').val(sku.id);
-                    $('.js-product-price-amount').html(formatPrice(sku.price));
-                    if (sku.compared_price != 0) {
-                        comparedPriceElement.html(formatPrice(sku.compared_price)).show();
-                    } else {
-                        comparedPriceElement.hide();
-                    }
-                }
-                else {
-                    disabledAddButton.show();
-                    enabledAddButton.hide();
-                    comparedPriceElement.hide();
-                }
+  if (sku !== null) {
+    disabledAddButton.hide();
+    enabledAddButton.show();
+    $('input[name=sku_id]').val(sku.id);
+    $('.js-product-price-amount').html(formatPrice(sku.price));
+    if (sku.compared_price != 0) {
+      comparedPriceElement.html(formatPrice(sku.compared_price)).show();
+    } else {
+      comparedPriceElement.hide();
+    }
+  } else {
+    disabledAddButton.show();
+    enabledAddButton.hide();
+      //comparedPriceElement.hide();
+    }
 
-                return sku;
-            }
+    return sku;
+  }
 
-            function formatPrice(price) {
-                price /= 100;
-                price = price.toFixed(2);
-                price = price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-                return '$ ' + price + ' {{ store.currency }}';
-            }
+  function formatPrice(price) {
+    price /= 100;
+    price = price.toFixed(2);
+    price = price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return '$ ' + price + ' {{ store.currency }}';
+  }
 
-            $('.js-variant-select').change(function () {
-                showSelectedSku();
-            });
-        </script>
-    {% endif %}
+  $('.js-variant-select').change(function() {
+    showSelectedSku();
+  });
+</script>
+{% endif %}
 
-    <script>
-        $(function() {
-            $('.js-variant-select').selectpicker({
-                style: 'btn-select btn-block',
-                size: 5
-            });
-            $('.js-variant-select').selectpicker().each(function () {
-                if (this.nodeName == "DIV") {
-                    $(this).find('ul.dropdown-menu li:first').css('display', 'none');
-                }
-            });
-            buildProductSlider();
-        });
+<script>
+  $(function() {
+    $('.js-variant-select').selectpicker({style: 'btn-select btn-block', size: 5});
+    $('.js-variant-select').selectpicker().each(function() {
+      if (this.nodeName == "DIV") {
+        $(this).find('ul.dropdown-menu li:first').css('display', 'none');
+      }
+    });
+    buildProductSlider();
+  });
 
-        $(window).resize(function() {
-            clearTimeout(timeOut);
-            timeOut = setTimeout(function() {
-                buildProductSlider();
-            }, 300);
-        });
-    </script>
+  $(window).resize(function() {
+    clearTimeout(timeOut);
+    timeOut = setTimeout(function() {
+      buildProductSlider();
+    }, 300);
+  });
+</script>
 
 {% endblock body_js %}
