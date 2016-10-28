@@ -11,7 +11,6 @@
     width: 100%;
     margin: 0;
   }
-
 </style>
 {% endif %}
 
@@ -25,11 +24,11 @@
         </div>
         {% else %}
         <div class="img-wrapper product__images product__images--for">
-          <img src="{{ 'placeholder_product.svg' | asset_url }}">
+          <img src="{{ 'placeholders/product-11.jpg' | global_img_url }}">
         </div>
         {% endfor %}
       </div>
-      {% if product.images | length > 0 %}
+      {% if product.images | length > 1 %}
       <div class="slider-nav hidden-xs hidden-sm">
         {% for image in product.images %}
         <div class="fill-image product__images product__images--nav" data-imgLiquid-fill="false">
@@ -45,17 +44,27 @@
         <span class="product__vendor__name">{{ product.vendor.name }}</span>
       </p>
       {% endif %}
-      <h3 class="section-heading product__title">{{ product.name }}</h3>
+      <h1 class="section-heading product__title">{{ product.name }}</h1>
       <div class="product__description">{{ product.description | raw }}</div>
-      <h5 class="product___heading">Precio</h5>
+      {% if settings.enable_share_products %}
+          <div class="product__social-share">
+            <p class="product-features">Compartir</p>
+            {% include '_social-share.twig' %}
+          </div>
+      {% endif %}
+
+      {% if product.sku.compared_price is not null and product.sku.compared_price != 0 %}
+      <p class="compared__price">
+        Precio regular: <span class="compared-price js-product-price-compared-amount">{{ product.sku.compared_price | money('symbol', 'code') }}</span>
+      </p>
+      {% endif %}
       <p class="product__price">
         <span class="final-price js-product-price-amount">{{ product.price | money('symbol', 'code') }}</span>
-        <span class="compared-price js-product-price-compared-amount">{{ product.sku.compared_price is defined ? product.sku.compared_price | money('symbol', 'code') : '' }}</span>
       </p>
       <form class="product_selection" action="/carrito/agregar" method="post">
         <input type="hidden" name="sku_id" value="{{ product.sku.id }}">
         <div class="row">
-          <div class="col-md-8">
+          <div class="col-xs-12 col-md-8">
             {% for modifier, options in product.skus_modifiers %}
             <div class="product__vars">
               <h5 class="product__heading">{{ modifier }}</h5>
@@ -80,7 +89,7 @@
         </div>
 
         <div class="row product__btn">
-          <div class="col-xs-12">
+          <div class="col-xs-12 col-md-8">
             {% if product.is_in_stock %}
             <button type="submit" class="btn btn-block js-add-to-cart">
               <i class="fa fa-cart-plus"></i>
@@ -196,9 +205,11 @@ function updateSkuControls(sku) {
   $(window).resize(function() {
     clearTimeout(timeOut);
     timeOut = setTimeout(function() {
+      squareItem('.product__images--for');
+      squareItem('.product__images--nav');
       buildProductSlider();
     }, 300);
   });
 </script>
 
-{% endblock body_js %}
+{% endblock %}

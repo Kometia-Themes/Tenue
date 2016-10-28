@@ -1,10 +1,10 @@
 {% extends 'layout.twig' %}
 
 {% block body %}
-<div class="container cart">
+<div class="container margin-top">
   <div class="row">
     <div class="col-xs-12">
-      <h2 class="section-heading">Carrito de Compras</h2>
+      <h1 class="section-heading">Carrito de Compras</h1>
     </div>
   </div>
 
@@ -23,7 +23,7 @@
   {% for item in cart.items %}
   {% set sku_image_url = item.product.image_url is defined
   ? item.product.image_url ~ '?w=100&h=130&fit=crop'
-  : 'placeholder.png' | asset_url
+  : 'placeholders/product-11.jpg' | global_img_url
   %}
   <div class="row cart-item">
     <div class="col-sm-7">
@@ -75,7 +75,6 @@
   <div class="row">
     <div class="col-sm-4 col-sm-offset-8 col-md-3 col-md-offset-9">
       <div class="cart__payment__info">
-
         <div class="row">
           <div class="col-xs-5">
             <h4 class="cart__payment__heading">Total</h4>
@@ -84,7 +83,6 @@
             <p class="cart__payment__cont text-right">{{ cart.total_price | money('symbol', 'code') }}</p>
           </div>
         </div>
-
       </div>
       <a href="/checkout" class="btn btn-block btn_cart"> Compra Ahora</a>
     </div>

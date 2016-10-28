@@ -10,7 +10,7 @@
       </button>
       <a class="navbar-brand" href="/">
         {% if settings.use_logo %}
-        <img src="{{ settings['nav_logo'] }}" class="img-responsive brand-logo">
+        <img src="{{ settings['nav_logo'] }}" class="img-responsive brand-logo" width="{{ settings.brand_logo_width }}" height="auto" >
         {% else %}
         <span class="brand-text">{{ store.name }}</span>
         {% endif %}
@@ -67,6 +67,22 @@
             </li>
           </ul>
         </li>
+        {% if store.customer_accounts_enabled_or_optional %}
+          {% if customer %}
+            <li>
+              <a href="/cuenta">
+                <i class="fa fa-user-circle"></i>
+              </a>
+            </li>
+          {% else %}
+            <li>
+              <a href="/cuenta/login">Ingresar</a>
+            </li>
+            <li>
+              <a href="/cuenta/registro">Registrarse</a>
+            </li>
+          {% endif %}
+        {% endif %}
       </ul>
     </div>
   </div>

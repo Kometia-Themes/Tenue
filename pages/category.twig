@@ -1,8 +1,8 @@
 {% extends 'layout.twig' %}
 
 {% block body %}
-<div class="container">
-  <div class="row margin-top">
+<div class="container margin-top">
+  <div class="row">
     {% if categories | length > 0 %}
     <div class="col-sm-3 col-md-2 products-filter">
       <h4 class="products-filter__title">Categorías</h4>
@@ -18,9 +18,7 @@
     <div class="{% if categories | length > 0 %}col-sm-9 col-md-10{% else %}col-sm-12{% endif %}">
       <h1 class="section-title">{{ category.title }}</h1>
       {% if products.count == 0 %}
-
         {% include '_products-placeholder.twig' %}
-
       {% else %}
 
       {% for products_row in products | batch(3) %}
@@ -34,9 +32,27 @@
       {% endfor %}
 
       {% include '_pagination.twig' %}
-
       {% endif %}
     </div>
   </div>
 </div>
+{% endblock %}
+
+{% block body_js %}
+{{ parent() }}
+
+<script>
+  $(window).load(function() {
+    squareItem('.product-card__image-container');
+  });
+
+  $(window).resize(function() {
+    clearTimeout(timeOut);
+    timeOut = setTimeout(function() {
+      squareItem('.product-card__image-container');
+      buildProductSlider();
+    }, 300);
+  });
+</script>
+
 {% endblock %}

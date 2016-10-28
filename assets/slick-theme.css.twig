@@ -1,3 +1,5 @@
+/* Version slick-theme.css 1.6 */
+
 @charset 'UTF-8';
 /* Slider */
 .slick-loading .slick-list {
@@ -9,6 +11,12 @@
   font-family: 'slick';
   font-weight: normal;
   font-style: normal;
+
+  src: url('{{ 'slick.eot' | asset_url }}');
+  src: url('{{ 'slick.eot?#iefix' | asset_url }}') format('embedded-opentype'),
+       url('{{ 'slick.woff' | asset_url }}') format('woff'),
+       url('{{ 'slick.ttf' | asset_url }}') format('truetype'),
+       url('slick.svg#slick' | asset_url }}') format('svg');
 
   src: url('{{ 'slick.eot' | asset_url }}');
   src: url('{{ 'slick.eot?#iefix' | asset_url }}') format('embedded-opentype'),
@@ -31,7 +39,6 @@
   width: 20px;
   height: 20px;
   padding: 0;
-  margin-top: -10px\9; /*lte IE 8*/
   -webkit-transform: translate(0, -50%);
   -ms-transform: translate(0, -50%);
   transform: translate(0, -50%);
@@ -81,16 +88,13 @@
 .slick-prev {
   left: -25px;
 }
-
 [dir='rtl'] .slick-prev {
   right: -25px;
   left: auto;
 }
-
 .slick-prev:before {
   content: '←';
 }
-
 [dir='rtl'] .slick-prev:before {
   content: '→';
 }
@@ -103,28 +107,27 @@
   right: auto;
   left: -25px;
 }
-
 .slick-next:before {
   content: '→';
 }
-
 [dir='rtl'] .slick-next:before {
   content: '←';
 }
 
 /* Dots */
-.slick-slider {
+.slick-dotted.slick-slider {
   margin-bottom: 30px;
 }
 
 .slick-dots {
   position: absolute;
-  bottom: -45px;
+  bottom: -25px;
 
   display: block;
 
   width: 100%;
   padding: 0;
+  margin: 0;
 
   list-style: none;
 
@@ -166,12 +169,10 @@
 .slick-dots li button:focus {
   outline: none;
 }
-
 .slick-dots li button:hover:before,
 .slick-dots li button:focus:before {
   opacity: 1;
 }
-
 .slick-dots li button:before {
   font-family: 'slick';
   font-size: 6px;
@@ -193,7 +194,6 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
 .slick-dots li.slick-active button:before {
   opacity: .75;
   color: black;

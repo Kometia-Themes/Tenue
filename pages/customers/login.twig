@@ -1,9 +1,9 @@
 {% extends 'layout.twig' %}
 
 {% block body %}
-<div class="container page">
+<div class="container page margin-top">
   <div class="row">
-    <div class="col-sm-12">
+    <div class="col-xs-12 page__content">
       <h2 class="page__title section-heading"> Iniciar sesión o crea una cuenta</h2>
     </div>
   </div>
@@ -14,13 +14,8 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-sm-12" style="border-bottom: 1px solid #cecece;">
-      {% include '_login-form.twig' %}
-    </div>
-  </div>
-  <div class="row">
     <div class="col-xs-12">
-      {% include '_register-form.twig' %}
+      {% include '_login-form.twig' %}
     </div>
   </div>
 </div>

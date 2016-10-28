@@ -3,14 +3,13 @@
 {% block body %}
 
 {% if products | length > 0 %}
-<div class="container">
+<div class="container margin-top">
   <div class="row">
     <div class="col-xs-12">
       <h2 class="products__title section-heading">Productos</h2>
     </div>
   </div>
   <div class="row products__grid">
-
     {% for product in products %}
     <div class="col-sm-6 col-md-4">
       {% include '_product-card.twig' %}
@@ -20,19 +19,16 @@
     </div>
     {% endfor %}
   </div>
-
   <div class="row text-center">
     {% include '_pagination.twig' %}
   </div>
 </div>
-
 {% else %}
-
 <div class="container placeholder-hover">
   <div class="placeholder-helper">
     <div class="placeholder-info">
       <p>Todavía no hay productos. Una vez que comiences a agregarlos, éstos se mostrarán aquí una vez activados.</p>
-      <a href="/admin/products" class="btn btn-placeholder">Agregar Productos</a>
+      <p class="text-center"><a href="/admin/products" class="btn btn-placeholder">Agregar Productos</a></p>
     </div>
   </div>
   <div class="row">
@@ -53,5 +49,24 @@
   </div>
 </div>
 {% endif %}
+
+{% endblock %}
+
+{% block body_js %}
+{{ parent() }}
+
+<script>
+  $(window).load(function() {
+    squareItem('.product-card__image-container');
+  });
+
+  $(window).resize(function() {
+    clearTimeout(timeOut);
+    timeOut = setTimeout(function() {
+      squareItem('.product-card__image-container');
+      buildProductSlider();
+    }, 300);
+  });
+</script>
 
 {% endblock %}

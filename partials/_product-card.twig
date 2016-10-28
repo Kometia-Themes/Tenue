@@ -1,24 +1,14 @@
-{% if product.image_url is defined %}
-
-{% set image_url = product.image_url ~ '?w=500&h=650' %}
-{% set extra_class = null %}
-
+{% if product.image_url is not null %}
+  {% set image_url = product.image_url ~ '?w=500&h=650' %}
+  {% set extra_class = null %}
 {% else %}
-
-{% set image_url = 'transparent_500_650.png' | asset_url %}
-{% set extra_class = 'product-card__no-image' %}
-
-{% endif %}
-
-{% if card_height is not defined %}
-
-{% set card_height = "450px" %}
-
+  {% set image_url = 'placeholders/product-11.jpg' | global_img_url %}
+  {% set extra_class = 'product-card__no-image' %}
 {% endif %}
 
 <div class="product-card">
   <a class="product-card__thumb-link product-card product-card__background {{ extra_class }}" href="/productos/{{ product.permalink }}">
-    <div class="fill-image product-card__image-container" data-imgLiquid-fill="false" style="height:{{ card_height }}">
+    <div class="fill-image product-card__image-container" data-imgLiquid-fill="false">
       <img src="{{ image_url }}" alt="{{ product.name }}" class="img-responsive product-card__image">
     </div>
     <div class="product-card__view-more">
@@ -28,6 +18,12 @@
   <h5 class="product-card__title">{{ product.name }}</h5>
   <p class="product-card__price">
     <span class="final-price">{{ product.price | money('symbol', 'code') }}</span>
-    <span class="compared-price">{{ product.compared_price is defined ? product.compared_price | money('symbol', 'code') : '' }}</span>
   </p>
+
+  {% if product.compared_price is not null or product.compared_price > 0 %}
+  <p class="compared__price">
+    Precio normal: <span class="compared-price"> {{ product.compared_price | money('symbol', 'code') }}</span>
+  </p>
+  {% endif %}
+
 </div>

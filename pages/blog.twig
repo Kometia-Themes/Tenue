@@ -1,8 +1,7 @@
 {% extends 'layout.twig' %}
 
 {% block body %}
-
-<div class="container">
+<div class="container margin-top">
   <div class="row">
     <div class="col-xs-12">
       <h1 class="section-heading">{{ blog.title }}</h1>
@@ -20,16 +19,16 @@
           <a class="blog__item__img__link" href="/blogs/{{ blog.permalink }}/posts/{{ post.permalink }}">
             {% if post.image_url %}
             <img src="{{ post.image_url }}?w=1180&h=500&fit=crop" alt="{{ post.name | escape }}" class="img-responsive">
-            {% else %}
-            <img src="{{ 'transparent_1180_100.png' | asset_url }}" alt="{{ post.name | escape }}" class="img-responsive">
             {% endif %}
           </a>
         </div>
       </div>
       <div class="row">
         <div class="col-xs-10 col-xs-offset-1 blog__item__info">
-          <h2 class="section-heading">{{ post.title }}</h2>
+          <h2 class="section-heading"><a class="blog__item__img__link" href="/blogs/{{ blog.permalink }}/posts/{{ post.permalink }}">{{ post.title }}</a></h2>
+          {% if post.summary %}
           <p class="blog__item__excerpt">{{ post.summary }}</p>
+          {% endif %}
           <a href="/blogs/{{ blog.permalink }}/posts/{{ post.permalink }}" class="blog-read-more">Leer más</a>
         </div>
       </div>

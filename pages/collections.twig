@@ -1,7 +1,7 @@
 {% extends 'layout.twig' %}
 
 {% block body %}
-{% include '_featured-collections.twig' %}
+{% include '_featured-collections.twig' with { 'h_tag': '1' } %}
 
 {% if collections | length > 0 %}
 <div class="container">

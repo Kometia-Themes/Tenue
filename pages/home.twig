@@ -1,21 +1,55 @@
 {% extends 'layout.twig' %}
 
 {% block body %}
+  {% if settings.frontpage_section_1 is not empty and settings.frontpage_section_1 != 'none' %}
+      {% include '_featured-' ~ settings.frontpage_section_1 ~ '.twig' %}
+  {% endif %}
 
-{% include '_slider.twig' %}
+  {% if settings.frontpage_section_2 is not empty and settings.frontpage_section_2 != 'none' %}
+    {% include '_featured-' ~ settings.frontpage_section_2 ~ '.twig' %}
+  {% endif %}
 
-{% if not settings.hide_featured_collections %}
-  {% include '_featured-collections.twig' %}
-{% endif %}
+  {% if settings.frontpage_section_3 is not empty and settings.frontpage_section_3 != 'none' %}
+    {% include '_featured-' ~ settings.frontpage_section_3 ~ '.twig' %}
+  {% endif %}
 
-{% if not settings.hide_featured_products %}
-  {% include '_featured-products.twig' %}
-{% endif %}
+  {% if settings.frontpage_section_4 is not empty and settings.frontpage_section_4 != 'none' %}
+    {% include '_featured-' ~ settings.frontpage_section_4 ~ '.twig' %}
+  {% endif %}
+{% endblock %}
 
-{% include '_full-width.banner.twig' %}
+{% block body_js %}
+{{ parent() }}
+<script type="text/javascript">
+  var timeOut;
 
-{% if settings.enable_blog %}
-  {% include '_front-blog-grid.twig' %}
-{% endif %}
+  $(window).load(function() {
+    squareItem('.collection__item--square');
+    squareItem('.product-card__image-container');
+    rectangleThumbnail('.grid-item__thumb-image');
+    rectangleThumbnail('.grid-item__thumb-no-image');
 
+    if ( !isMobile() ) {
+      rectangleItem('.collection__item--rectangle', '.collection__item--square');
+    } else {
+      squareItem('.collection__item--rectangle');
+    }
+  });
+
+  $(window).resize(function() {
+    clearTimeout(timeOut);
+    timeOut = setTimeout(function(){
+      squareItem('.collection__item--square');
+      squareItem('.product-card__image-container');
+      rectangleThumbnail('.grid-item__thumb-image');
+      rectangleThumbnail('.grid-item__thumb-no-image');
+
+      if ( !isMobile() ) {
+        rectangleItem('.collection__item--rectangle', '.collection__item--square');
+      } else {
+        squareItem('.collection__item--rectangle');
+      }
+    }, 300);
+  });
+</script>
 {% endblock %}

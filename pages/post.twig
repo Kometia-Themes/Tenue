@@ -6,13 +6,18 @@
     <div class="post__header__overlay"></div>
     <div class="col-xs-12 col-sm-10 col-sm-offset-1" style="position: absolute; bottom: 15px;">
       <h2 class="post__header__title">{{ post.title | escape }}</h2>
-      {# <p class="post__header__summary visible-xs-block">{{ post.summary }}</p> #}
     </div>
   </div>
 </div>
 <div class="container">
   <div class="row">
     <div class="col-xs-12 col-sm-10 col-sm-offset-1 post__content">
+      {% if settings.enable_share_posts %}
+        <div class="product__social-share">
+        <p class="product-features">Compártelo</p>
+        {% include '_social-share.twig' %}
+        </div>
+      {% endif %}
       <p>{{ post.content }}</p>
     </div>
   </div>

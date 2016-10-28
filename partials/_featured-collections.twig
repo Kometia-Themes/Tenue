@@ -1,25 +1,26 @@
 {% set featured_collections = [] %}
-
-{% for i in 1..4 %}
-
-{% set featured_collection = 'featured_collection_' ~ i %}
-
-{% if settings[featured_collection]is not empty and collections[settings[featured_collection]]is defined %}
-
-{% set featured_collections = featured_collections | merge([collections[settings[featured_collection]]]) %}
-
+{% if h_tag is null %}
+  {% set h_tag = '2' %}
+  {% set margin_top = '' %}
+{% else %}
+  {% set h_tag = '1' %}
+  {% set margin_top = 'margin-top' %}
 {% endif %}
 
+{% for i in 1..4 %}
+  {% set featured_collection = 'featured_collection_' ~ i %}
+  {% if settings[featured_collection] is not empty and collections[settings[featured_collection]]is defined %}
+    {% set featured_collections = featured_collections | merge([collections[settings[featured_collection]]]) %}
+  {% endif %}
 {% endfor %}
 
 {% if featured_collections | length > 0 %}
-<div class="container">
+<div class="container {{ margin_top }}">
   <div class="row">
     <div class="col-xs-12">
-      <h2 class="featured__collections__heading section-heading">Colecciones Destacadas</h2>
+      <h{{ h_tag }} class="featured__collections__heading section-heading">Colecciones Destacadas</h{{ h_tag }}>
     </div>
   </div>
-
   {% if featured_collections | length == 1 %}
     {% include '_featured-collection-1-item.twig' with { 'collection_1': featured_collections.0 } only %}
   {% elseif featured_collections | length == 2 %}
@@ -37,8 +38,8 @@
   <div class="placeholder-helper">
     <div class="placeholder-info">
       <p>Todavía no existen colecciones destacadas de momento, este placeholder aparecerá como tu colección destacada.</p>
-      <a href="/admin/collections" class="btn btn-placeholder">Gestionar Colecciones</a>
-      <a href="/admin/themes" class="btn btn-placeholder">Ir a sección de temas</a>
+      <p class="text-center"><a href="/admin/collections" class="btn btn-placeholder">Gestionar Colecciones</a>
+      <a href="/admin/themes" class="btn btn-placeholder">Ir a sección de temas</a></p>
     </div>
   </div>
   <div class="row">
