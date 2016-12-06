@@ -1,4 +1,4 @@
-<form action="/cuenta/recuperar" method="POST" role="form" class="login-form">
+{% form 'customer_recover_password' 'role="form" class="login-form"' %}
   <div class="row">
     <div class="col-x-12">
       <h4 class="text-center">Recuperar Contraseña</h4>
@@ -20,3 +20,4 @@
     </div>
   </div>
 </form>
+{% endform %}

@@ -11,9 +11,9 @@
   </div>
   <div class="row products__grid">
     {% for product in products %}
-    <div class="col-sm-6 col-md-4">
+    <div class="col-sm-6 col-md-3">
       {% include '_product-card.twig' %}
-      {% if loop.index % 3 == 0%}
+      {% if loop.index % 4 == 0%}
       <br class="clear-both">
       {% endif %}
     </div>
@@ -24,7 +24,7 @@
   </div>
 </div>
 {% else %}
-<div class="container placeholder-hover">
+<div class="container placeholder-hover margin-top">
   <div class="placeholder-helper">
     <div class="placeholder-info">
       <p>Todavía no hay productos. Una vez que comiences a agregarlos, éstos se mostrarán aquí una vez activados.</p>
@@ -37,13 +37,22 @@
     </div>
   </div>
   <div class="row products__grid">
-    <div class="col-sm-4">
+    <div class="col-xs-6 col-sm-4">
       {% include '_product-placeholder.twig' %}
     </div>
-    <div class="col-sm-4">
+    <div class="col-xs-6 col-sm-4">
       {% include '_product-placeholder.twig' %}
     </div>
-    <div class="col-sm-4">
+    <div class="col-xs-6 col-sm-4 hidden-xs">
+      {% include '_product-placeholder.twig' %}
+    </div>
+    <div class="col-xs-6 col-sm-4 hidden-xs">
+      {% include '_product-placeholder.twig' %}
+    </div>
+    <div class="col-xs-6 col-sm-4 hidden-xs">
+      {% include '_product-placeholder.twig' %}
+    </div>
+    <div class="col-xs-6 col-sm-4 hidden-xs">
       {% include '_product-placeholder.twig' %}
     </div>
   </div>

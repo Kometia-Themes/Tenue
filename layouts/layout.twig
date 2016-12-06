@@ -65,6 +65,17 @@
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery-placeholder/2.3.1/jquery.placeholder.js"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/imgLiquid/0.9.944/js/imgLiquid-min.js"></script>
     <script type="text/javascript" src="{{ 'app.js' | asset_url }}"></script>
+{#   <script type="text/javascript">
+    $(document).ready(function(e) {
+    var heightNew = 0;
+    $('.product__container').each(function(index, element) {
+        if($(this).height() > heightNew){
+            heightNew = $(this).height();
+        }
+            $(this).css('height', heightNew+'px');
+        });
+    });
+    </script> #}
     {% endblock %}
 </body>
 </html>

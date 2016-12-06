@@ -6,6 +6,10 @@
     {% endif %}
   </a>
   <h5 class="blog-grid-item__title">{{ post.title | escape }}</h5>
-  <p class="blog-grid-item__summary">{{ post.summary }}</p>
+  {% if post.summary %}
+  <p class="blog-grid-item__summary">{{ post.summary | truncate_words(20) }}</p>
+  {% else %}
+  <p class="blog-grid-item__summary">{{ post.content | truncate_words(20)}}</p>
+  {% endif %}
   <a href="/blogs/{{ blog.permalink }}/posts/{{ post.permalink }}" class="blog-read-more">Leer más</a>
 </div>

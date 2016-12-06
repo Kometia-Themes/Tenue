@@ -17,22 +17,22 @@
 <div class="container">
   <div class="row product">
     <div class="col-sm-6">
-      <div class="slider-for">
+      <div class="slider-for main-product">
         {% for image in product.images %}
         <div class="fill-image product__images product__images--for" data-imgLiquid-fill="false">
-          <img src="{{ image.url }}?w=575&h=620">
+          <img src="{{ image.url }}?w=575&h=620" alt="{{ image.name }}" id="main-image">
         </div>
         {% else %}
         <div class="img-wrapper product__images product__images--for">
-          <img src="{{ 'placeholders/product-11.jpg' | global_img_url }}">
+          <img src="{{ 'placeholders/product-15.jpg' | global_img_url }}">
         </div>
         {% endfor %}
       </div>
       {% if product.images | length > 1 %}
-      <div class="slider-nav hidden-xs hidden-sm">
-        {% for image in product.images %}
+      <div class="slider-nav hidden-xs hidden-sm js-slider">
+        {% for thumbnail in product.images %}
         <div class="fill-image product__images product__images--nav" data-imgLiquid-fill="false">
-          <img src="{{ image.url }}?w=185&h=152">
+          <img src="{{ thumbnail.url }}?w=185&h=152">
         </div>
         {% endfor %}
       </div>
@@ -48,60 +48,58 @@
       <div class="product__description">{{ product.description | raw }}</div>
       {% if settings.enable_share_products %}
           <div class="product__social-share">
-            <p class="product-features">Compartir</p>
             {% include '_social-share.twig' %}
           </div>
       {% endif %}
-
-      {% if product.sku.compared_price is not null and product.sku.compared_price != 0 %}
-      <p class="compared__price">
-        Precio regular: <span class="compared-price js-product-price-compared-amount">{{ product.sku.compared_price | money('symbol', 'code') }}</span>
-      </p>
-      {% endif %}
-      <p class="product__price">
-        <span class="final-price js-product-price-amount">{{ product.price | money('symbol', 'code') }}</span>
-      </p>
+      {% if not product.is_in_stock %}<span class="label label-danger">Agotado</span>{% endif %}
+        <div class="product-single__price" id="js-price-preview">
+          <del class="compared-price"><span class="inner">{{ product.compared_price is defined ? product.compared_price | money('symbol', 'code') : '' }}</span></del><br>
+          <span class="final-price js-product-price-compared-amount">{{ product.price | money('symbol', 'code') }}</span>
+        </div>
       <form class="product_selection" action="/carrito/agregar" method="post">
-        <input type="hidden" name="sku_id" value="{{ product.sku.id }}">
+        <input id="js-sku-id" type="hidden" name="sku_id" value="{{ product.sku.id }}">
         <div class="row">
-          <div class="col-xs-12 col-md-8">
+          <div class="col-xs-12">
+            <div class="row">
             {% for modifier, options in product.skus_modifiers %}
+            <div class="col-xs-12 col-md-6">
             <div class="product__vars">
               <h5 class="product__heading">{{ modifier }}</h5>
               <select class="selectpicker js-variant-select" title="Elegir {{ modifier }}" name="{{ loop.index0 }}" id="{{ loop.index0 }}">
-                <option></option>
                 {% for option in options %}
-                <option value="{{ loop.index0 }}">{{ option }}</option>
+                  <option value="{{ option }}" {% if loop.first %}selected="selected"{% endif %}>{{ option }}</option>
                 {% endfor %}
               </select>
             </div>
+          </div>
             {% endfor %}
-
-            <div class="product__vars">
-              <h5 class="product__heading">Cantidad</h5>
-              <select class="selectpicker" title="Cantidad de producto" name="quantity" id="quantity">
-                {% for qty in 1..5 %}
-                <option value="{{ qty }}" {{ qty == item.quantity ? ' selected="selected"' : null }}>{{ qty }}</option>
-                {% endfor %}
-              </select>
+            </div>
+            <div class="row">
+              <div class="col-xs-12 col-md-6">
+                <div class="product__vars">
+                  <h5 class="product__heading">Cantidad</h5>
+                  <select class="selectpicker js-quantity-select" title="Cantidad de producto" name="quantity" id="quantity">
+                    {% for qty in 1..5 %}
+                    <option value="{{ qty }}" {{ qty == item.quantity ? ' selected="selected"' : null }}>{{ qty }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
         <div class="row product__btn">
-          <div class="col-xs-12 col-md-8">
+          <div class="col-xs-12 col-md-6">
             {% if product.is_in_stock %}
-            <button type="submit" class="btn btn-block js-add-to-cart">
+            <button id="js-add-to-cart" type="submit" class="btn btn-block">
               <i class="fa fa-cart-plus"></i>
               Añadir al carrito
             </button>
-            <button type="submit" class="btn btn-block js-add-to-cart-disabled" disabled="disabled">
-              No disponible
-            </button>
             {% else %}
-            <button class="btn btn-block js-add-to-cart-disabled" disabled="disabled">
-              No disponible
-            </button>
+              <button class="btn btn-block js-add-to-cart-disabled" disabled="disabled">
+                No disponible
+              </button>
             {% endif %}
           </div>
         </div>
@@ -117,8 +115,69 @@
 {{ parent() }}
 
 {% if product.is_in_stock %}
+  {{ 'sku-select/v1/sku-select.min.js' | global_asset_url | script_tag }}
 <script type="text/javascript">
-  var skus = {{ product.skus | json }};
+    var skus = {{ product.skus | json }};
+    buildProductSlider();
+
+    var formatMoney = function(price) {
+      var formatPrice = price /= 100;
+      formatPrice = formatPrice.toFixed(2);
+      formatPrice = formatPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      return '$ ' + formatPrice + ' {{ store.currency }}';
+    }
+  $(document).ready(function () {
+    var firstLoad = true;
+
+    new Shoperti.SkuSelect({
+      selector: 'js-variant-select',
+      skus: {{ product.skus | json }}
+    }, function(sku) {
+      var producto_qty = 0;
+      var producto_qty = $('.js-quantity-select option:selected').val();
+
+      if (sku && !(sku.stock_policy !== 'none' && sku.in_stock < 1)) {
+        jQuery('#js-sku-id').val(sku.id);
+        jQuery('#js-add-to-cart').removeClass('disabled').removeAttr('disabled', 'disabled')
+        if (sku.price < sku.compared_price) {
+          jQuery('#js-price-preview').html("<del class=\"compared-price\">" + formatMoney(sku.compared_price) + "</span></del><br><span class=\"final-price js-product-price-compared-amount product-price__discount\">" + formatMoney(sku.price));
+        } else {
+          jQuery('#js-price-preview').html("<span class=\"final-price js-product-price-compared-amount\">" + formatMoney(sku.price) + "</span>");
+        }
+      } else {
+        jQuery('#js-add-to-cart').addClass('disabled').attr('disabled', 'disabled')
+        jQuery('#js-price-preview').html('<span class="js-product-price-compared-amount">No disponible</span>');
+      }
+
+      if (sku) {
+        var image = sku.image_url;
+        if (!firstLoad) {
+          var currentImage = $('#main-image');
+          if (image && currentImage.attr('src') != image) {
+            currentImage.attr("src", image);
+          }
+        }
+        firstLoad = false;
+      }
+      $('.js-quantity-select').change(function() {
+        var producto_qty = 0;
+        var producto_qty = $('.js-quantity-select option:selected').val();
+        if (sku.stock_policy == 'none' || sku.in_stock >= producto_qty ) {
+        jQuery('#js-sku-id').val(sku.id);
+        jQuery('#js-add-to-cart').removeClass('disabled').removeAttr('disabled', 'disabled')
+        } else {
+          jQuery('#js-add-to-cart').addClass('disabled').attr('disabled', 'disabled')
+          jQuery('#js-price-preview').html('<span class="js-product-price-compared-amount">No disponible</span>');
+        }
+      });
+
+      $('.slick-slide').on('click', function(e) {
+      mainProduct = $(this).find('img').attr('src');
+      $('.main-product').find('img').attr('src', mainProduct);
+    });
+    });
+
+  });
 
   $('.add-to-cart-disabled').hide();
   showSelectedSku();
@@ -187,21 +246,13 @@ function updateSkuControls(sku) {
 
   $('.js-variant-select').change(function() {
     showSelectedSku();
+    buildProductSlider();
   });
+
 </script>
 {% endif %}
 
 <script>
-  $(function() {
-    $('.js-variant-select').selectpicker({style: 'btn-select btn-block', size: 5});
-    $('.js-variant-select').selectpicker().each(function() {
-      if (this.nodeName == "DIV") {
-        $(this).find('ul.dropdown-menu li:first').css('display', 'none');
-      }
-    });
-    buildProductSlider();
-  });
-
   $(window).resize(function() {
     clearTimeout(timeOut);
     timeOut = setTimeout(function() {

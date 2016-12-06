@@ -1,4 +1,4 @@
-<form action="/cuenta/restablecer" method="POST" role="form" class="login-form">
+{% form 'customer_reset_password' 'role="form" class="login-form"' %}
   <div class="row">
     <div class="col-x-12">
       <h4 class="text-center">Restablecer Contraseña</h4>
@@ -28,4 +28,4 @@
       <input type="hidden" name="email" value="{{ email }}">
     </div>
   </div>
-</form>
+{% endform %}

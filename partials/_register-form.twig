@@ -1,7 +1,7 @@
-<form action="/cuenta/registro" method="POST" role="form" class="login-form">
+{% form 'customer_register' 'role="form" class="login-form"' %}
   <div class="row">
     <div class="col-x-12">
-      <h4 class="text-center">¿Eres un nuevo cliente? Empieza Aqui</h4>
+      <h4 class="text-center">¿Eres un nuevo cliente? Empieza Aquí</h4>
       <br/>
     </div>
     <div class="col-sm-6 col-md-4 col-md-offset-2">
@@ -42,4 +42,4 @@
       </div>
     </div>
   </div>
-</form>
+{% endform %}

@@ -3,7 +3,7 @@
   {% if category.permalink == current.permalink %}
   {{ category.title }}
   {% else %}
-  <a href="/categorias/{{ category.permalink }}">{{ category.title }}</a>
+  <a href="/categorias/{{ category.permalink }}">{{ category.title | title }}</a>
   {% endif %}
 
   {% for sub_category in category.children %}

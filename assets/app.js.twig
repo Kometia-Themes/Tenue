@@ -85,6 +85,8 @@ function buildProductSlider() {
 }
 
 $(document).ready(function() {
+  $("p:contains('<meta charset=\"utf-8\" \/>')").remove();
+  
   if ($('.js-slider-home div').size() > 0) {
     $('.js-slider-home').slick({
       dots: true,

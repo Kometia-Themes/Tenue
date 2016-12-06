@@ -1,6 +1,6 @@
 {
   "info": {
-    "logo": "nav_logo",
+    "logo": "screenshot.png",
     "header": "Tenue Theme",
     "content": [
       "Tema 'Tenue' de Shoperti. Por favor contáctanos por cualquier problema con este tema a [contacto](mailto:themes-support@shoperti.com)."
@@ -854,7 +854,7 @@
               "type": "checkbox",
               "id": "enable_share_products",
               "label": "Compartir en redes sociales",
-              "default": false
+              "default": true
             },
             {
               "type": "text",
@@ -890,7 +890,7 @@
               "type": "checkbox",
               "id": "enable_share_posts",
               "label": "Compartir en redes sociales",
-              "default": false
+              "default": true
             },
             {
               "type": "blog",

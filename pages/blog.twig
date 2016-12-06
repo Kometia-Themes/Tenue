@@ -27,7 +27,9 @@
         <div class="col-xs-10 col-xs-offset-1 blog__item__info">
           <h2 class="section-heading"><a class="blog__item__img__link" href="/blogs/{{ blog.permalink }}/posts/{{ post.permalink }}">{{ post.title }}</a></h2>
           {% if post.summary %}
-          <p class="blog__item__excerpt">{{ post.summary }}</p>
+          <p class="blog__item__excerpt">{{ post.summary | truncate_words(24) }}</p>
+          {% else %}
+          <p class="blog__item__excerpt">{{ post.content | truncate_words(24) }}</p>
           {% endif %}
           <a href="/blogs/{{ blog.permalink }}/posts/{{ post.permalink }}" class="blog-read-more">Leer más</a>
         </div>
