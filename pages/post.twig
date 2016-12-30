@@ -5,19 +5,20 @@
   <div class="row post__header" style="background-image: url('{{ post.image_url }}')">
     <div class="post__header__overlay"></div>
     <div class="col-xs-12 col-sm-10 col-sm-offset-1" style="position: absolute; bottom: 15px;">
-      <h2 class="post__header__title">{{ post.title | escape }}</h2>
+      <h1 class="post__header__title">{{ post.title | escape }}</h1>
     </div>
   </div>
 </div>
 <div class="container">
   <div class="row">
     <div class="col-xs-12 col-sm-10 col-sm-offset-1 post__content">
-      {% if settings.enable_share_posts %}
-        <div class="product__social-share">
-        {% include '_social-share.twig' %}
-        </div>
+      {{ post.content }}
+      {% if settings.enable_share_blog %}
+      <br>
+      <div class="product__social-share">
+      {% include '_social-share.twig' %}
+      </div>
       {% endif %}
-      <p>{{ post.content }}</p>
     </div>
   </div>
 </div>

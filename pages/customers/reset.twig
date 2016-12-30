@@ -1,14 +1,16 @@
 {% extends 'layout.twig' %}
 
 {% block body %}
-<div class="container margin-top">
-  <div class="row page">
-    <div class="col-sm-12">
-      <h1 class="section-title title">{{ page.title }}</h1>
+<div class="container page margin-top">
+  <div class="row">
+    <div class="col-sm-12 text-center">
+      <h1 class="page__title section-heading">Restablecer Contraseña</h1>
     </div>
-    <div class="col-sm-12">
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
       {% include '_reset-form.twig' %}
     </div>
   </div>
 </div>
-{% endblock body %}
+{% endblock %}

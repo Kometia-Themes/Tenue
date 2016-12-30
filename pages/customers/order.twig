@@ -12,25 +12,37 @@
   <div class="row">
     <div class="col-sm-6">
       <h4>Dirección de envío</h4>
-      <p>{{ order.shipping_first_name ~ ' ' ~ order.shipping_last_name }} {{ order.shipping_full_name }}</p>
-      <p>{{ order.shipping_address1 }}</p>
-      <p>{{ order.shipping_address2 }}</p>
-      <p>{{ order.shipping_company }}</p>
-      <p>{{ order.shipping_country }}</p>
-      <p>{{ order.shipping_state }}</p>
-      <p>{{ order.shipping_postcode }}</p>
-      <p>{{ order.shipping_phone }}</p>
+      <h5>{{ order.shipping.name }}</h5>
+      <p>
+        {{ order.shipping.address.address1 }}<br>
+        {{ order.shipping.address.address2 }}<br>
+        {% if order.shipping.address.company != '' %}
+          {{ order.shipping.address.company }}<br>
+        {% endif %}
+        {{ order.shipping.address.country }}<br>
+        {% if order.shipping.address.state != '' %}
+          {{ order.shipping.address.state }}<br>
+        {% endif %}
+        {{ order.shipping.address.postcode }}<br>
+        {{ order.shipping.phone }}
+      </p>
     </div>
     <div class="col-sm-6">
       <h4>Dirección de pago</h4>
-      <p>{{ order.billing_first_name ~ ' ' ~ order.billing_last_name }} {{ order.billing_full_name }}</p>
-      <p>{{ order.billing_address1 }}</p>
-      <p>{{ order.billing_address2 }}</p>
-      <p>{{ order.billing_company }}</p>
-      <p>{{ order.billing_country }}</p>
-      <p>{{ order.billing_state }}</p>
-      <p>{{ order.billing_postcode }}</p>
-      <p>{{ order.billing_phone }}</p>
+      <h5>{{ order.billing.name }}</h5>
+      <p>
+        {{ order.billing.address.address1 }}<br>
+        {{ order.billing.address.address2 }}<br>
+        {% if order.billing.address.company != '' %}
+          {{ order.billing.address.company }}<br>
+        {% endif %}
+        {{ order.billing.address.country }}<br>
+        {% if order.billing.address.state != '' %}
+          {{ order.billing.address.state }}<br>
+        {% endif %}
+        {{ order.billing.address.postcode }}<br>
+        {{ order.billing.phone }}
+      </p>
     </div>
   </div>
 
@@ -74,7 +86,7 @@
   </div>
   <div class="row">
     <div class="col-xs-12">
-      <p><a href="/cuenta">Regresar</a></p>
+      <p><a class="btn" href="/cuenta">Regresar</a></p>
     </div>
   </div>
 </div>

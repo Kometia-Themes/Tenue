@@ -16,6 +16,10 @@
   {% if settings.frontpage_section_4 is not empty and settings.frontpage_section_4 != 'none' %}
     {% include '_featured-' ~ settings.frontpage_section_4 ~ '.twig' %}
   {% endif %}
+
+  {% if settings.frontpage_section_5 is not empty and settings.frontpage_section_5 != 'none' %}
+    {% include '_featured-' ~ settings.frontpage_section_5 ~ '.twig' %}
+  {% endif %}
 {% endblock %}
 
 {% block body_js %}

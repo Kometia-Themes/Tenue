@@ -7,7 +7,7 @@
       <h1 class="section-title">Cuenta</h1>
     </div>
     <div class="col-sm-4 text-right">
-      <a class="btn" href="/cuenta/logout">Cerrar sesión</a>
+      <a class="btn btn-sm" href="/cuenta/logout">Cerrar sesión</a>
     </div>
   </div>
 
@@ -67,7 +67,7 @@
               <td>{{ order.created_at | datetime }}</td>
               <td>{{ order.financial_status_label }}</td>
               <td>{{ order.fulfillment_status_label }}</td>
-              <td>{{ order.total_price | money }}</td>
+              <td>{{ order.total_price | money_with_symbol }}</td>
             </tr>
             {% endfor %}
           </tbody>

@@ -1,3 +1,10 @@
+{% if settings.banner_message is not empty %}
+<div class="banner-message">
+  <div class="container">
+    {{ settings.banner_message }}
+  </div>
+</div>
+{% endif %}
 <nav class="navbar navbar-default" id="main-menu">
   <div class="container">
     {# Brand and toggle get grouped for better mobile display #}
@@ -23,7 +30,7 @@
         {% for link in menus.main %}
           {% if link.children | length > 0 %}
             <li>
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ link.name }} <b class="caret"></b></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ link.name }} <i class="fa fa-angle-down" style="margin-left: 8px;"></i></a>
               <ul class="dropdown-menu multi-level">
                 {% for children in link.children %}
                   {% include '_nav-item.twig' with {'link': children} %}
@@ -40,17 +47,33 @@
         {% endfor %}
       </ul>
       <ul class="nav navbar-nav navbar-right">
+        {% if store.customer_accounts_enabled_or_optional %}
+          {% if customer %}
+            <li>
+              <a href="/cuenta">
+                <i class="fa fa-user-circle"></i>
+                <span class="visible-xs-inline">Cuenta</span>
+              </a>
+            </li>
+          {% else %}
+            <li>
+              <a href="/cuenta/login">Cuenta</a>
+            </li>
+          {% endif %}
+        {% endif %}
         <li>
           <a href="/carrito">
             <i class="fa fa-shopping-cart"></i>
             {% if cart.total_items > 0 %}
             <sup class="cart-notification">{{ cart.total_items }}</sup>
             {% endif %}
+            <span class="visible-xs-inline">Carrito</span>
           </a>
         </li>
         <li class="dropdown search-dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"aria-expanded="false">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
             <i class="fa fa-search"></i>
+            <span class="visible-xs-inline">Búsqueda</span>
           </a>
           <ul class="dropdown-menu">
             <li>
@@ -67,22 +90,6 @@
             </li>
           </ul>
         </li>
-        {% if store.customer_accounts_enabled_or_optional %}
-          {% if customer %}
-            <li>
-              <a href="/cuenta">
-                <i class="fa fa-user-circle"></i>
-              </a>
-            </li>
-          {% else %}
-            <li>
-              <a href="/cuenta/login">Ingresar</a>
-            </li>
-            <li>
-              <a href="/cuenta/registro">Registrarse</a>
-            </li>
-          {% endif %}
-        {% endif %}
       </ul>
     </div>
   </div>

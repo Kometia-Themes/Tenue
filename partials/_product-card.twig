@@ -8,19 +8,20 @@
 
 <div class="product-card">
   <a class="product-card__thumb-link product-card product-card__background {{ extra_class }}" href="/productos/{{ product.permalink }}">
-    <div class="fill-image product-card__image-container" data-imgLiquid-fill="false">
+    <div class="js-fill-image product-card__image-container" data-imgLiquid-fill="false" style="height: 360px;">
       <img src="{{ image_url }}" alt="{{ product.name }}" class="img-responsive product-card__image">
     </div>
     <div class="product-card__view-more">
       <h5>Ver Producto</h5>
     </div>
   </a>
-  <h5 class="product-card__title">{{ product.name }}</h5>
+  <a href="/productos/{{ product.permalink }}">
+    <h4 class="product-card__title">{{ product.name }}</h4>
+  </a>
   <p class="product-card__price">
     <span class="final-price">{{ product.price | money('symbol', 'code') }}</span>
   </p>
-
-  {% if product.compared_price is not null or product.compared_price > 0 %}
+  {% if product.compared_price > 0 %}
   <p class="compared__price">
     Precio normal: <span class="compared-price"> {{ product.compared_price | money('symbol', 'code') }}</span>
   </p>

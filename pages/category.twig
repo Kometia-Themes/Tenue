@@ -18,7 +18,7 @@
     <div class="{% if categories | length > 0 %}col-sm-9 col-md-10{% else %}col-sm-12{% endif %}">
       <h1 class="section-title">{{ category.title }}</h1>
       {% if products.count == 0 %}
-        {% include '_product-placeholder.twig' %}
+        <p>No encontramos productos en esta categoría.</p>
       {% else %}
 
       {% for products_row in products | batch(3) %}

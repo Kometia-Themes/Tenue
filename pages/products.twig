@@ -6,16 +6,17 @@
 <div class="container margin-top">
   <div class="row">
     <div class="col-xs-12">
-      <h2 class="products__title section-heading">Productos</h2>
+      <h1 class="products__title section-heading">Productos</h1>
     </div>
   </div>
-  <div class="row products__grid">
-    {% for product in products %}
-    <div class="col-sm-6 col-md-3">
-      {% include '_product-card.twig' %}
-      {% if loop.index % 4 == 0%}
-      <br class="clear-both">
-      {% endif %}
+  <div class="products__grid">
+    {% for products_row in products | batch(3) %}
+    <div class="row">
+      {% for product in products_row %}
+      <div class="col-xs-12 col-sm-4">
+        {% include '_product-card.twig' %}
+      </div>
+      {% endfor %}
     </div>
     {% endfor %}
   </div>

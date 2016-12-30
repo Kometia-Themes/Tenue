@@ -86,15 +86,18 @@ function buildProductSlider() {
 
 $(document).ready(function() {
   $("p:contains('<meta charset=\"utf-8\" \/>')").remove();
-  
+
   if ($('.js-slider-home div').size() > 0) {
     $('.js-slider-home').slick({
+      accessibility: true,
       dots: true,
       arrows: false,
       infinite: true,
       speed: 500,
-      autoplay: true,
-      autoplaySpeed: 5000
+      fade: true,
+      cssEase: 'linear',
+      adaptiveHeight: true,
+      autoplay: true
     });
   }
 
@@ -113,4 +116,5 @@ $(document).ready(function() {
     return false;
   });
 
+  $('.js-fill-image').imgLiquid();
 });
