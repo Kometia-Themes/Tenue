@@ -1,0 +1,41 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-12 no-gut">
+      {% if settings.slide_1 or settings.slide_2 or settings.slide_3 or settings.slide_4 %}
+      <div class="js-slider-home slick-slider-home">
+      {% for i in 1..3 %}
+        {% set slide = 'slide_'~i %}
+        {% if settings[slide] %}
+        {% set slide_btn = slide~'_btn' %}
+        {% set slide_btn_url = slide~'_btn_url' %}
+        {% set slide_btn_text = slide~'_btn_text' %}
+        {% set slide_image = slide~'_image' %}
+        {% set slide_title = slide~'_title' %}
+        {% set slide_desc = slide~'_desc' %}
+        {% if settings[slide_image] is empty %}
+        <div style="background: #F4F4F4 url('{{ 'placeholders/product-11.jpg' | global_img_url }}') no-repeat center center; background-size: contain;">
+        {% else %}
+        <div style="background-color: #EEEEEE; background-image: url('{{ settings[slide_image] }}?w=1280&h=550&fit=crop')">
+        {% endif %}
+          {% if settings.slider_has_overlay %}
+          <div class="slider_overlay"></div>
+          {% endif %}
+          <div class="container">
+          <div class="slider_content row">
+            <div class="col-xs-12">
+              <h2 class="slider_title">{{ settings[slide_title] }}</h2>
+              <p class="slider_desc"><span class="{% if settings.slider_text_has_overlay %}legibility{% endif %}">{{ settings[slide_desc] }}</span></p>
+              {% if settings[slide_btn] %}
+              <a href="{{ settings[slide_btn_url] }}" class="btn btn-block">{{ settings[slide_btn_text] }}</a>
+              {% endif %}
+            </div>
+          </div>
+          </div>
+        </div>
+        {% endif %}
+      {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>

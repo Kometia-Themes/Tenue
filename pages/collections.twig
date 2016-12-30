@@ -1,70 +1,66 @@
 {% extends 'layout.twig' %}
 
-{% block main_title %}
-    Colecciones
-{% endblock main_title %}
-
 {% block body %}
-    {% include "_featured-collections.twig" %}
+{% include '_featured-collections.twig' with { 'h_tag': '1' } %}
 
-    {% if collections|length > 0 %}
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12">
-                    <h2 class="collections__heading section-heading">Todas las colecciones</h2>
-                </div>
-            </div>
-            <div class="row collection__grid collection__layout__all-items">
-                {% for collection in collections %}
-                    <div class="col-sm-3">
-                        {% include "_collection-square.twig" %}
-                    </div>
-                {% endfor %}
-            </div>
-        </div>
-    {% else %}
-        <div class="container placeholder-hover">
-            <div class="placeholder-helper">
-                <div class="placeholder-info">
-                    <p>Todavía no existen colecciones, en cuanto añadas productos, éstas irán apareciendo aquí.</p>
-                    <a href="/admin/collection" class="btn btn-placeholder">Agregar Colecciones</a>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12">
-                    <h2 class="collections__heading section-heading">Todas las colecciones</h2>
-                </div>
-            </div>
-            {% include "_collection-placeholder-grid-4.twig" %}
-        </div>
-    {% endif %}
+{% if collections | length > 0 %}
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <h2 class="collections__heading section-heading">Todas las colecciones</h2>
+    </div>
+  </div>
+  <div class="row collection__grid collection__layout__all-items">
+    {% for collection in collections %}
+    <div class="col-sm-3">
+      {% include '_collection-square.twig' %}
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% else %}
+<div class="container placeholder-hover">
+  <div class="placeholder-helper">
+    <div class="placeholder-info">
+      <p>Todavía no existen colecciones, en cuanto añadas productos, éstas irán apareciendo aquí.</p>
+      <a href="/admin/collection" class="btn btn-placeholder">Agregar Colecciones</a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <h2 class="collections__heading section-heading">Todas las colecciones</h2>
+    </div>
+  </div>
+  {% include '_collection-placeholder-grid-4.twig' %}
+</div>
+{% endif %}
 
-{% endblock body %}
+{% endblock %}
 
 {% block body_js %}
-    {{ parent() }}
-    <script type="text/javascript">
-        var timeOut;
+{{ parent() }}
+<script type="text/javascript">
+  var timeOut;
 
-        $(window).load(function() {
-            squareItem('.collection__item--square');
-            if ( !isMobile() ) {
-                rectangleItem('.collection__item--rectangle', '.collection__item--square');
-            } else {
-                squareItem('.collection__item--rectangle');
-            }
-        });
+  $(window).load(function() {
+    squareItem('.collection__item--square');
+    if ( !isMobile() ) {
+      rectangleItem('.collection__item--rectangle', '.collection__item--square');
+    } else {
+      squareItem('.collection__item--rectangle');
+    }
+  });
 
-        $(window).resize(function() {
-            clearTimeout(timeOut);
-            timeOut = setTimeout(function(){
-                squareItem('.collection__item--square');
-                if ( !isMobile() ) {
-                    rectangleItem('.collection__item--rectangle', '.collection__item--square');
-                } else {
-                    squareItem('.collection__item--rectangle');
-                }
-            }, 300);
-        });
-    </script>
-{% endblock body_js %}
+  $(window).resize(function() {
+    clearTimeout(timeOut);
+    timeOut = setTimeout(function(){
+      squareItem('.collection__item--square');
+      if ( !isMobile() ) {
+        rectangleItem('.collection__item--rectangle', '.collection__item--square');
+      } else {
+        squareItem('.collection__item--rectangle');
+      }
+    }, 300);
+  });
+</script>
+{% endblock %}

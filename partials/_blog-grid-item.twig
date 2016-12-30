@@ -1,8 +1,15 @@
 <div class="blog-grid-item">
-    <a class="blog-grid-item__thumb-link" href="/blogs/{{ blog.permalink }}/posts/{{ post.permalink }}">
-        <img src="{{ post.image_url }}?w=370&h=200&fit=crop" alt="{{ post.name }}" class="img-responsive">
-    </a>
-    <h5 class="blog-grid-item__title">{{ post.title }}</h5>
-    <p class="blog-grid-item__summary">{{ post.summary }}</p>
-    <a href="/blogs/{{ blog.permalink }}/posts/{{ post.permalink }}" class="blog-read-more">Leer más</a>
+    {% if post.image_url is not null %}
+  <a class="blog-grid-item__thumb-link grid-item__thumb-image " href="/blogs/{{ blog.permalink }}/posts/{{ post.permalink }}" style="background-image: url('{{ post.image_url }}?w=370&h=200&fit=crop');">
+    {% else %}
+  <a class="blog-grid-item__thumb-link grid-item__thumb-no-image " href="/blogs/{{ blog.permalink }}/posts/{{ post.permalink }}">
+    {% endif %}
+  </a>
+  <h5 class="blog-grid-item__title">{{ post.title | escape }}</h5>
+  {% if post.summary %}
+  <p class="blog-grid-item__summary">{{ post.summary | truncate_words(20) }}</p>
+  {% else %}
+  <p class="blog-grid-item__summary">{{ post.content | truncate_words(20)}}</p>
+  {% endif %}
+  <a href="/blogs/{{ blog.permalink }}/posts/{{ post.permalink }}" class="blog-read-more">Leer más</a>
 </div>

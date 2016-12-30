@@ -1,42 +1,100 @@
+{% if settings.banner_message is not empty %}
+<div class="banner-message">
+  <div class="container">
+    {% if settings.banner_message_link %}
+      <a href="{{ settings.banner_message_link }}" alt="{{ settings.banner_message }}" target="_blank">{{ settings.banner_message }}</a>
+    {% else %}
+      {{ settings.banner_message }}
+    {% endif %}
+  </div>
+</div>
+{% endif %}
 <nav class="navbar navbar-default" id="main-menu">
-    <div class="container">
-        {# Brand and toggle get grouped for better mobile display #}
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-menu-collapse" aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/">
-                {% if settings.use_logo %}
-                    <img src="{{ settings['nav_logo'] }}" class="img-responsive brand-logo">
-                {% else %}
-                    <span class="brand-text">{{ store.name }}</span>
-                {% endif %}
-            </a>
-        </div>
+  <div class="container">
+    {# Brand and toggle get grouped for better mobile display #}
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-menu-collapse" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">
+        {% if settings.use_logo %}
+        <img src="{{ settings['nav_logo'] }}" class="img-responsive brand-logo" width="{{ settings.brand_logo_width }}" height="auto" >
+        {% else %}
+        <span class="brand-text">{{ store.name }}</span>
+        {% endif %}
+      </a>
+    </div>
 
-        {# Collect the nav links, forms, and other content for toggling #}
-        <div class="collapse navbar-collapse" id="main-menu-collapse">
-            <ul class="nav navbar-nav navbar-left">
-                {% for link in menus.main %}
-                    <li>
-                        <a href="{{ link.url }}">
-                            {{ link.name }}
-                        </a>
-                    </li>
+    {# Collect the nav links, forms, and other content for toggling #}
+    <div class="collapse navbar-collapse" id="main-menu-collapse">
+      <ul class="nav navbar-nav navbar-left">
+        {% for link in menus.main %}
+          {% if link.children | length > 0 %}
+            <li>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ link.name }} <i class="fa fa-angle-down" style="margin-left: 8px;"></i></a>
+              <ul class="dropdown-menu multi-level">
+                {% for children in link.children %}
+                  {% include '_nav-item.twig' with {'link': children} %}
                 {% endfor %}
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="/carrito"><i class="fa fa-shopping-cart"></i>
-                        {% if cart.total_items > 0 %}
-                            <sup class="cart-notification">{{ cart.total_items }}</sup>
-                        {% endif %}
-                    </a>
-                </li>
-                <li><a href="/buscar"><i class="fa fa-search"></i></a></li>
-            </ul>
-        </div>{# /.navbar-collapse #}
-    </div>{# /.container-fluid #}
+              </ul>
+            </li>
+          {% else %}
+          <li>
+            <a href="{{ link.url }}">
+              {{ link.name }}
+            </a>
+          </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        {% if store.customer_accounts_enabled_or_optional %}
+          {% if customer %}
+            <li>
+              <a href="/cuenta">
+                <i class="fa fa-user-circle"></i>
+                <span class="visible-xs-inline">Cuenta</span>
+              </a>
+            </li>
+          {% else %}
+            <li>
+              <a href="/cuenta/login">Cuenta</a>
+            </li>
+          {% endif %}
+        {% endif %}
+        <li>
+          <a href="/carrito">
+            <i class="fa fa-shopping-cart"></i>
+            {% if cart.total_items > 0 %}
+            <sup class="cart-notification">{{ cart.total_items }}</sup>
+            {% endif %}
+            <span class="visible-xs-inline">Carrito</span>
+          </a>
+        </li>
+        <li class="dropdown search-dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+            <i class="fa fa-search"></i>
+            <span class="visible-xs-inline">Búsqueda</span>
+          </a>
+          <ul class="dropdown-menu">
+            <li>
+              <form action="/buscar" method="get" class="form-inline">
+                <div class="form-group">
+                  <div class="input-group">
+                    <input type="text" class="form-control input-lg" name="q" placeholder="Buscar">
+                    <span class="input-group-btn">
+                      <button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
+                    </span>
+                  </div>
+                </div>
+              </form>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
 </nav>

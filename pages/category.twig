@@ -1,50 +1,58 @@
 {% extends 'layout.twig' %}
 
-{% block main_title %}
-    {{ category.title }}
-{% endblock main_title %}
-
 {% block body %}
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12 text-center">
-                <h3 class="section-title title">
-                    {{ category.title }}
-                </h3>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-sm-3 products-filter">
-                <h4 class="products-filter__title title">Categorias</h4>
-                <hr>
-                <div class="form-group products-filter__container">
-                    {% if categories | length > 0 %}
-                        {% for categoryElement in categories %}
-                            {% include '_category_tree_item.twig' with {
-                            'category' : categoryElement,
-                            'current'  : category
-                            } only %}
-                        {% endfor %}
-                    {% else %}
-                        No hay subcategorías
-                    {% endif %}
-                </div>
-            </div>
-
-            <div class="col-sm-9">
-                <div class="row">
-                    {% for product in products %}
-                        <div class="col-sm-4">
-                            {% include "_product-card.twig" %}
-                        </div>
-                        {{ loop.index % 3 == 0 ? '<br class="hidden-xs clear-both">': '' }}
-                    {% endfor %}
-                </div>
-                <div class="row text-center">
-                    {% include '_pagination.twig' %}
-                </div>
-            </div>
-        </div>
+<div class="container margin-top">
+  <div class="row">
+    {% if categories | length > 0 %}
+    <div class="col-sm-3 col-md-2 products-filter">
+      <h4 class="products-filter__title">Categorías</h4>
+      <hr>
+      <div class="form-group products-filter__container">
+        {% for category_element in categories %}
+        {% include '_category_tree_item.twig' with { 'category': category_element, 'current': category, index: loop.index } only %}
+        {% endfor %}
+      </div>
     </div>
-{% endblock body %}
+    {% endif %}
+
+    <div class="{% if categories | length > 0 %}col-sm-9 col-md-10{% else %}col-sm-12{% endif %}">
+      <h1 class="section-title">{{ category.title }}</h1>
+      {% if products.count == 0 %}
+        <p>No encontramos productos en esta categoría.</p>
+      {% else %}
+
+      {% for products_row in products | batch(3) %}
+      <div class="row">
+        {% for product in products_row %}
+        <div class="col-xs-12 col-sm-4">
+          {% include '_product-card.twig' %}
+        </div>
+        {% endfor %}
+      </div>
+      {% endfor %}
+
+      {% include '_pagination.twig' %}
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block body_js %}
+{{ parent() }}
+
+<script>
+  $(window).load(function() {
+    squareItem('.product-card__image-container');
+  });
+
+  $(window).resize(function() {
+    clearTimeout(timeOut);
+    timeOut = setTimeout(function() {
+      squareItem('.product-card__image-container');
+      buildProductSlider();
+    }, 300);
+  });
+</script>
+
+{% endblock %}

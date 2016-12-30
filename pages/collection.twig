@@ -1,111 +1,62 @@
 {% extends 'layout.twig' %}
 
-{% block main_title %}
-    {{ collection.title }}
-{% endblock main_title %}
-
-{% if collection.image_url is defined %}
-    {% set image_url = collection.image_url ~ '?w=1280&h=560&fit=crop' %}
-    {% set extra_style = null %}
+{% block body %}
+{% if collection.image_url is not null %}
+  {% set image_url = collection.image_url ~ '?w=1280&h=560&fit=crop' %}
+  {% set extra_style = null %}
 {% else %}
-    {% set image_url = 'placeholder_collection.svg' | asset_url %}
-    {% set extra_style = 'background-size:250px' %}
+  {% set image_url = 'placeholders/product-11.jpg' | global_img_url %}
+  {% set extra_style = 'background-size:250px; background-color:'~settings.placeholder_background_color~';' %}
 {% endif %}
 
-{% block body %}
-    <div class="container">
+<div class="container margin-top">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="collection__header" style="background-image: url('{{ image_url }}');{{ extra_style }}">
+        <div class="collection__header__overlay"></div>
         <div class="row">
-            <div class="col-xs-12">
-                <div class="collection__header" style="background-image: url('{{ image_url }}');{{ extra_style }}">
-                    <div class="collection__header__overlay"></div>
-                    <div class="row">
-                        <div class="collection__header__info col-sm-10 col-sm-offset-1">
-                            <h2 class="collection__header__info__title">{{ collection.title }}</h2>
-                            <p class="collection__header__info__desc">{{ collection.description | raw }}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+          <div class="collection__header__info col-sm-10 col-sm-offset-1">
+            <h2 class="collection__header__info__title">{{ collection.title | escape }}</h2>
+            <p class="collection__header__info__desc">{{ collection.description | striptags }}</p>
+          </div>
         </div>
-
-        {# TODO : ORDER BY #}
-        {#<div class="row collection__sort">#}
-            {#<div class="col-sm-3 col-sm-offset-9">#}
-                {#<form action="" method="post">#}
-                    {#<select class="order-by selectpicker" name="order-by" title="Ordenar Por">#}
-                        {#{% for qty in 1..5 %}#}
-                            {#<option value="{{ qty }}"{{ qty == item.quantity ? ' selected="selected"' : null }}>{{ qty }}</option>#}
-                        {#{% endfor %}#}
-                    {#</select>#}
-                {#</form>#}
-            {#</div>#}
-        {#</div>#}
-
-        <div class="row">
-            {% set col_size = 'col-sm-12'%}
-
-            {% if collection.has_filters %}
-                {% set col_size = 'col-sm-9'%}
-                <div class="col-sm-3 sidebar">
-                    {% if collection.filters.tags is defined %}
-                        <div class="sidebar__section sidebar__section--first">
-                            <h4 class="sidebar__section__title">Etiquetas</h4>
-                            {% for tag in collection.filters.tags %}
-                                <div class="checkbox sidebar__section__item">
-                                    <label>
-                                        <input type="checkbox" value="{{ tag.permalink }}"> {{ tag.title }}
-                                    </label>
-                                </div>
-                            {% endfor %}
-                        </div>
-                    {% endif %}
-
-                    {% if collection.filters.variants is defined %}
-                        {% for modifier, options in collection.filters.variants %}
-                            <div class="sidebar__section sidebar__section">
-                                <h4 class="sidebar__section__title">{{ modifier }}</h4>
-                                {% for option in options %}
-                                    <div class="checkbox sidebar__section__item">
-                                        <label>
-                                            <input type="checkbox" value="{{ option }}"> {{ option }}
-                                        </label>
-                                    </div>
-                                {% endfor %}
-                            </div>
-                        {% endfor %}
-                    {% endif %}
-
-                </div>
-            {% endif %}
-
-            <div class="{{ col_size }}">
-                <div class="row">
-                    {% for product in collection.products %}
-                        <div class="col-sm-4">
-                            {% include "_product-card.twig" %}
-                        </div>
-                        {{ loop.index % 3 == 0 ? '<br class="hidden-xs clear-both">': '' }}
-                    {% endfor %}
-                </div>
-                <div class="row text-center">
-                    {% include '_pagination.twig' %}
-                </div>
-            </div>
-        </div>
+      </div>
     </div>
+  </div>
 
-{% endblock body %}
+  <div class="row">
+    <div class="col-sm-12">
+      {% for products_row in products | batch(3) %}
+      <div class="row">
+        {% for product in products_row %}
+        <div class="col-xs-12 col-sm-4">
+          {% include '_product-card.twig' %}
+        </div>
+        {% endfor %}
+      </div>
+      {% endfor %}
+      <div class="row text-center">
+        {% include '_pagination.twig' %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
 
 {% block body_js %}
-    {{ parent() }}
+{{ parent() }}
+<script type="text/javascript">
+  var timeOut;
 
-    <script>
-        $(function() {
-            $('.selectpicker').selectpicker({
-                style: 'btn-select btn-block',
-                size: 5
-            });
-        });
-    </script>
+  $(window).load(function() {
+    squareItem('.product-card__image-container');
+  });
 
-{% endblock body_js %}
+  $(window).resize(function() {
+    clearTimeout(timeOut);
+    timeOut = setTimeout(function(){
+      squareItem('.product-card__image-container');
+    })
+  });
+</script>
+{% endblock %}

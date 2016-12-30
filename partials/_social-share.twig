@@ -1,0 +1,32 @@
+{% if 'post' in template or 'blog' in template %}
+  {% set permalink_url = canonical_url %}
+  {% set share_title = post.title | escape %}
+{% elseif 'product' in template %}
+  {% set permalink_url = canonical_url %}
+  {% set share_title = product.name | escape %}
+{% elseif template == 'password' %}
+  {% set permalink_url = canonical_url %}
+  {% set share_title = store.name | escape %}
+{% endif %}
+
+<div class="social-sharing" data-permalink="{{ permalink_url }}">
+    <a target="_blank" href="//www.facebook.com/sharer.php?u={{ permalink_url }}" class="btn btn-sm btn-share share-facebook" title="Compartir en Facebook">
+      <i class="fa fa-facebook" aria-hidden="true"></i>
+      <span class="visually-hidden">Compartir</span>
+    </a>
+    <a target="_blank" href="//twitter.com/share?text={{ share_title }}&amp;url={{ permalink_url }}" class="btn btn-sm btn-share share-twitter" title="Tuitear en Twitter">
+      <i class="fa fa-twitter" aria-hidden="true"></i>
+      <span class="visually-hidden">Tuitear</span>
+    </a>
+  {% if product.image_url or post.image_url %}
+      <a target="_blank" href="//pinterest.com/pin/create/button/?url={{ permalink_url }}&amp;media=http:{% if 'product' in template %}{{ product.image_url }}{% else %}{{ post.image_url }}{% endif %}&amp;description={{ share_title }}" class="btn btn-sm btn-share share-pinterest" title="Pinear en Pinterest">
+        <i class="fa fa-pinterest" aria-hidden="true"></i>
+        <span class="visually-hidden">Pinear</span>
+      </a>
+  {% endif %}
+    <a target="_blank" href="//plus.google.com/share?url={{ permalink_url }}" class="btn btn-sm btn-share share-google" title="+1 en Google Plus">
+      <span class="fa fa-google-plus" aria-hidden="true"></span>
+      <span class="visually-hidden">+1 Google</span>
+    </a>
+
+</div>
