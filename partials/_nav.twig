@@ -1,7 +1,11 @@
 {% if settings.banner_message is not empty %}
 <div class="banner-message">
   <div class="container">
-    {{ settings.banner_message }}
+    {% if settings.banner_message_link %}
+      <a href="{{ settings.banner_message_link }}" alt="{{ settings.banner_message }}" target="_blank">{{ settings.banner_message }}</a>
+    {% else %}
+      {{ settings.banner_message }}
+    {% endif %}
   </div>
 </div>
 {% endif %}

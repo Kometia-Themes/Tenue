@@ -371,8 +371,15 @@ a.btn.btn-share.share-google:hover {
   font-family: {{ settings.header_font | remove('Google+') | replace({'+': ' '}) }};
   line-height: 30px;
   font-size: 12px;
-  text-align: left;
+  text-align: center;
   letter-spacing: 1px;
+}
+.banner-message a {
+  color: {{ settings.banner_message_text_color }};
+}
+.banner-message a:hover {
+  text-decoration: none;
+  color: {{ settings.banner_message_text_color | darken_color }};
 }
 
 /* * * * * * * * */

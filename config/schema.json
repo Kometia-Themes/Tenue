@@ -475,6 +475,13 @@
         "type": "text",
         "id": "banner_message",
         "label": "Texto de Barra"
+      },
+      {
+        "type": "text",
+        "id": "banner_message_link",
+        "label": "Enlace de la barra",
+        "default": "",
+        "info": "Ejemplo: http://www.mitienda.com/promocion"
       }]
     }]
   },
