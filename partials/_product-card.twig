@@ -1,5 +1,5 @@
 {% if product.image_url is not null %}
-  {% set image_url = product.image_url ~ '?w=500&h=650' %}
+  {% set image_url = product.image_url ~ '&w=500&h=650' %}
   {% set extra_class = null %}
 {% else %}
   {% set image_url = 'placeholders/product-11.jpg' | global_img_url %}

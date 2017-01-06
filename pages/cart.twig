@@ -26,9 +26,9 @@
       <div class="media">
         <div class="media-left cart-item__image-container">
           {% if item.sku.image_url is not empty %}
-          <img class="media-object" src="{{ item.sku.image_url }}?w=100" width="100" alt="{{ item.product.name }}">
+          <img class="media-object" src="{{ item.sku.image_url }}&w=100" width="100" alt="{{ item.product.name }}">
           {% elseif item.product.image_url is not empty %}
-          <img class="media-object" src="{{ item.product.image_url }}?w=100" width="100" alt="{{ item.product.name }}">
+          <img class="media-object" src="{{ item.product.image_url }}&w=100" width="100" alt="{{ item.product.name }}">
           {% else %}
           <img class="media-object" src="{{ 'placeholders/product-11.jpg' | global_img_url }}" width="100" alt="{{ item.product.name }}">
           {% endif %}

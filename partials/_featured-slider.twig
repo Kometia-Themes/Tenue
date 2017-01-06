@@ -15,7 +15,7 @@
         {% if settings[slide_image] is empty %}
         <div style="background: #F4F4F4 url('{{ 'placeholders/product-11.jpg' | global_img_url }}') no-repeat center center; background-size: contain;">
         {% else %}
-        <div style="background-color: #EEEEEE; background-image: url('{{ settings[slide_image] }}?w=1280&h=550&fit=crop')">
+        <div style="background-color: #EEEEEE; background-image: url('{{ settings[slide_image] }}&w=1280&h=550&fit=crop')">
         {% endif %}
           {% if settings.slider_has_overlay %}
           <div class="slider_overlay"></div>

@@ -2,7 +2,7 @@
 
 {% block body %}
 {% if collection.image_url is not null %}
-  {% set image_url = collection.image_url ~ '?w=1280&h=560&fit=crop' %}
+  {% set image_url = collection.image_url ~ '&w=1280&h=560&fit=crop' %}
   {% set extra_style = null %}
 {% else %}
   {% set image_url = 'placeholders/product-11.jpg' | global_img_url %}

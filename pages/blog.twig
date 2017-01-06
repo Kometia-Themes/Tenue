@@ -19,7 +19,7 @@
           <a href="/blogs/{{ blog.permalink }}/posts/{{ post.permalink }}">
             {% if post.image_url %}
             <div class="js-fill-image" style="min-height: 500px;">
-              <img src="{{ post.image_url }}?w=1180&h=500&fit=crop" alt="{{ post.title | escape }}" class="img-responsive">
+              <img src="{{ post.image_url }}&w=1180&h=500&fit=crop" alt="{{ post.title | escape }}" class="img-responsive">
             </div>
             {% endif %}
           </a>

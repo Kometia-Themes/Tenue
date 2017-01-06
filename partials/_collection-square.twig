@@ -1,5 +1,5 @@
 {% if collection.image_url is not null %}
-  {% set style = ' style="background-image: url(\'' ~ collection.image_url ~ '?w=570&h=570&fit=crop\');"' %}
+  {% set style = ' style="background-image: url(\'' ~ collection.image_url ~ '&w=570&h=570&fit=crop\');"' %}
   {% set class = ' collection__item--with_image' %}
 {% else %}
   {% set style = null %}
