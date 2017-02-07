@@ -1,0 +1,62 @@
+{% extends 'layout.twig' %}
+
+{% block body %}
+<div class="container margin-top gallery">
+  <div class="row">
+    <div class="col-xs-12">
+      <h1 class="page__title section-heading">{{ page.title | escape }}</h1>
+    </div>
+  </div>
+  <div class="row text-center">
+    <div class="image-container">
+      {{ page.content }}
+    </div>
+  </div>
+</div>
+<style type="text/css">
+.image-container {
+  position: relative;
+  width: 100%;
+  min-height: 100%;
+}
+.image-container .img-link {
+  width: 100%;
+  height: auto;
+  min-height: 300px;
+}
+.img-item {
+  float: left;
+  width: 50%;
+  border: 6px solid {{ settings.shop_bg_color }};
+}
+.img-item img {
+  max-width: 100%;
+}
+</style>
+{% endblock %}
+
+{% block body_js %}
+{{ parent() }}
+<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/lightbox2/2.9.0/css/lightbox.min.css">
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/masonry/4.1.1/masonry.pkgd.min.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/lightbox2/2.9.0/js/lightbox.min.js"></script>
+<script type="text/javascript">
+  $(document).ready(function () {
+    $(".image-container img" ).addClass('img-responsive');
+    $(".image-container img" ).wrap(function() {
+      return "<div class='\img-item\'><a class='img-link' href='"+ this.src +"' data-lightbox='gallery'></a></div>";
+    });
+  });
+  $(window).on('load', function(){
+    $('.image-container').masonry({
+      itemSelector: '.img-item',
+      columnWidth: '.img-item',
+      percentPosition: true
+    });
+    lightbox.option({
+       'albumLabel':  "Imagen %1 de %2"
+    });
+  });
+</script>
+
+{% endblock %}
