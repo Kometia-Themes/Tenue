@@ -282,6 +282,37 @@
           "label": "Monaco/Lucida Console",
           "group": "Monospace"
         }]
+      },
+      {
+        "type": "select",
+        "id": "body_font_size",
+        "label": "Tamaño",
+        "default": "14px",
+        "options": [
+          {
+            "value": "12px",
+            "label": "12px"
+          },
+          {
+            "value": "13px",
+            "label": "13px"
+          },
+          {
+            "value": "14px",
+            "label": "14px"
+          },
+          {
+            "value": "15px",
+            "label": "15px"
+          },
+          {
+            "value": "16px",
+            "label": "16px"
+          },
+          {
+            "value": "18px",
+            "label": "18px"
+          }]
       }]
     },
     {
@@ -431,9 +462,41 @@
           "label": "Monaco/Lucida Console",
           "group": "Monospace"
         }]
+      },
+      {
+        "type": "select",
+        "id": "header_font_size",
+        "label": "Tamaño",
+        "default": "36px",
+        "options": [
+          {
+            "value": "32px",
+            "label": "36px"
+          },
+          {
+            "value": "34px",
+            "label": "34px"
+          },
+          {
+            "value": "36px",
+            "label": "36px"
+          },
+          {
+            "value": "38px",
+            "label": "38px"
+          },
+          {
+            "value": "40px",
+            "label": "36px"
+          },
+          {
+            "value": "42px",
+            "label": "42px"
+          }]
       }]
     }]
   },
+
   {
     "name": "Encabezado",
     "sections": [{

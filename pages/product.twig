@@ -31,8 +31,8 @@
       {% if product.images | length > 1 %}
       <div class="slider-nav hidden-xs hidden-sm js-slider">
         {% for thumbnail in product.images %}
-        <div class="js-fill-image product__images product__images--nav" style="height: 130px;">
-          <img src="{{ thumbnail.url }}&w=185&h=152" alt="{{ product.name }} ">
+        <div class="js-fill-image product__images product__images--nav" style="width:185px; height: 150px;">
+          <img width="185" src="{{ thumbnail.url }}&w=592&h=486&fit=crop" alt="{{ product.name }} ">
         </div>
         {% endfor %}
       </div>
@@ -47,7 +47,9 @@
       <h1 class="section-heading product__title">{{ product.name }}</h1>
       {% if not product.is_in_stock %}<span class="label label-danger">Agotado</span>{% endif %}
       <div class="product-single__price" id="js-price-preview">
+        {% if  product.compared_price > product.price %}
         <del class="compared-price"><span class="inner">{{ product.compared_price is defined ? product.compared_price | money('symbol', 'code') : '' }}</span></del><br>
+        {% endif %}
         <span class="final-price js-product-price-compared-amount">{{ product.price | money('symbol', 'code') }}</span>
       </div>
       <form class="product_selection" action="/carrito/agregar" method="post">
@@ -121,7 +123,6 @@
 {% block body_js %}
 {{ parent() }}
 
-{% if product.is_in_stock %}
 {{ 'sku-select/v1/sku-select.min.js' | global_asset_url | script_tag }}
 <script type="text/javascript">
   buildProductSlider();
@@ -151,6 +152,8 @@
         } else {
           jQuery('#js-price-preview').html("<span class=\"final-price js-product-price-compared-amount\">" + formatMoney(sku.price) + "</span>");
         }
+      } else if (sku.in_stock == 0) {
+        jQuery('#js-add-to-cart').addClass('disabled').attr('disabled', 'disabled')
       } else {
         jQuery('#js-add-to-cart').addClass('disabled').attr('disabled', 'disabled')
         jQuery('#js-price-preview').html('<span class="js-product-price-compared-amount">No disponible</span>');
@@ -187,7 +190,6 @@
 
   });
 </script>
-{% endif %}
 
 <script>
   $(window).resize(function() {
