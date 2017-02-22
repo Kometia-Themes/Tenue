@@ -21,7 +21,7 @@
   <p class="product-card__price">
     <span class="final-price">{{ product.price | money('symbol', 'code') }}</span>
   </p>
-  {% if product.compared_price > 0 %}
+  {% if product.compared_price > product.price %}
   <p class="compared__price">
     Precio normal: <span class="compared-price"> {{ product.compared_price | money('symbol', 'code') }}</span>
   </p>
