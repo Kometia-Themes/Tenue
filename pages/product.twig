@@ -143,8 +143,7 @@
     }, function(sku) {
       var producto_qty = 0;
       var producto_qty = $('.js-quantity-select option:selected').val();
-
-      if (sku && !(sku.stock_policy !== 'none' && sku.in_stock < 1)) {
+      if (sku && (sku.in_stock >= 1 || sku.stock_policy === 'none' || sku.is_backorderable)) {
         jQuery('#js-sku-id').val(sku.id);
         jQuery('#js-add-to-cart').removeClass('disabled').removeAttr('disabled', 'disabled')
         if (sku.price < sku.compared_price) {
