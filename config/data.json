@@ -27,7 +27,7 @@
       "use_logo": "",
       "nav_logo": "",
       "brand_logo_width": "120px",
-      "use_favicon": "",
+      "use_favicon": false,
       "favicon": "",
       "banner_message": "",
       "banner_message_link": "",

@@ -10,17 +10,16 @@
         <h2 class="home__featured__heading section-heading">{{ settings.featured_products_title }}</h2>
       </div>
     </div>
+  {% set limit = settings.featured_products_limit is not empty ? min(0+settings.featured_products_limit, 50) : 50 %}
+  {% for products_row in featured_products | batch(4) | slice(0, limit) %}
     <div class="row featured__product__grid">
-      {% set limit = settings.featured_products_limit is not empty
-      ? min(0+settings.featured_products_limit, 50)
-      : 50
-      %}
-      {% for product in featured_products | slice(0, limit) %}
+      {% for product in products_row %}
       <div class="col-sm-6 col-md-3">
         {% include '_product-card.twig' with { 'card_height': '320px' } %}
       </div>
       {% endfor %}
     </div>
+    {% endfor %}
   </div>
   {% endif %}
 {% else %}
