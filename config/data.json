@@ -31,6 +31,7 @@
       "favicon": "",
       "banner_message": "",
       "banner_message_link": "",
+      "footer_display_navigation": true,
       "footer_display_contact_data": true,
       "footer_contact_data": "Calle Principal #000\n+52 1 123 456 7890",
       "footer_display_newsletter": true,

@@ -586,6 +586,11 @@
           "settings": [
             {
               "type": "checkbox",
+              "id": "footer_display_navigation",
+              "label": "Mostrar menú"
+            },
+            {
+              "type": "checkbox",
               "id": "footer_display_contact_data",
               "label": "Mostrar información de contacto"
             },
